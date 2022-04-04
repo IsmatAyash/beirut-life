@@ -22,6 +22,8 @@ import ThirdPartyLiab from '../assets/images/ThirdPartyLiab.jpeg';
 import BodlyInjury from '../assets/images/BodlyInjury.jpeg';
 import TotalLoss from '../assets/images/TotalLoss.jpeg';
 import travel from '../assets/images/travel.png';
+import life from '../assets/images/life.png';
+import home from '../assets/images/home.png';
 
 export default {
   badge,
@@ -48,4 +50,6 @@ export default {
   BodlyInjury,
   TotalLoss,
   travel,
+  life,
+  home,
 };

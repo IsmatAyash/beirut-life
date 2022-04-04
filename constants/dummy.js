@@ -38,31 +38,31 @@ const InsData = [
     image: assets.travel,
   },
   {
-    id: 'NFT-05',
-    name: 'Colorful circles',
-    creator: 'David doe',
+    id: 'LFE-05',
+    name: 'Life Insurance',
+    creator: 'Allianz',
     price: 10.25,
     description:
-      'The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.',
-    image: assets.nft05,
+      'A simple, affordable way to financially protect the ones you love Term life insurance is the top choice for people who want to offer financial security to their family when the unexpected happens to the life insured during the active term of the policy. Let your loved ones be cared for and plan for the unexpected.',
+    image: assets.life,
   },
   {
-    id: 'NFT-06',
+    id: 'SME-06',
     name: 'Black box model',
     creator: 'Leo Messi',
     price: 20.25,
     description:
-      'The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.',
+      'Our insurance policies are tailored for each type of business. So, whatever your business is, we have the right cover for you to be prepared for unforeseen circumstances, allowing you to focus your efforts on what you do best – running your business.',
     image: assets.nft06,
   },
   {
-    id: 'NFT-07',
-    name: 'Abstracto soulful art',
-    creator: 'Victor de la Cruz',
+    id: 'HME-07',
+    name: 'Home Insurance',
+    creator: 'Allianz',
     price: 18.25,
     description:
-      'The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis. Ullamcorper platea penatibus ornare egestas nulla ligula hendrerit nisl suscipit sociosqu maximus, tincidunt aptent habitant purus pharetra ultrices dapibus laoreet nisi lacinia. Porta malesuada netus vel sapien conubia porttitor aliquam ut pretium ante litora molestie senectus magna egestas sociosqu, eget aliquet fames pharetra felis posuere varius fringilla quisque in arcu montes eu ullamcorper.',
-    image: assets.nft07,
+      'We understand that your home is more than bricks and mortar and it is very precious to you. Our home insurance is designed to safeguard your home and pay for damages to your home and your belongings.',
+    image: assets.home,
   },
 ];
 
