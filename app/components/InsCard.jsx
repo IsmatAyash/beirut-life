@@ -1,33 +1,37 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { COLORS, SIZES, SHADOWS, FONTS, assets } from '../constants';
 import { CircleButton, RectButton } from './Button';
 import { InsTitle, InsPrice } from './CardSubInfo';
 
-export const InsCard = ({ data }) => {
+export const InsCard = ({ data, onPress }) => {
   const navigation = useNavigation();
   return (
-    <View style={styles.card}>
-      <View style={styles.header}>
-        <Image source={data.image} resizeMode="cover" style={styles.image} />
-        <CircleButton imgUrl={assets.heart} right={10} top={10} />
-      </View>
-      <View style={styles.details}>
-        <InsTitle
-          title={data.name}
-          subTitle={data.creator}
-        />
-        <View style={styles.buttonPrice}>
-          <InsPrice price={data.price} />
-          <RectButton
-            minWidth={120}
-            fontSize={SIZES.font}
-            handlePress={() => navigation.navigate('Details', { data })}
-          />
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <Image source={data.image} resizeMode="cover" style={styles.image} />
+          <CircleButton imgUrl={assets.heart} right={10} top={10} />
+        </View>
+        <View style={styles.details}>
+          <InsTitle title={data.name} subTitle={data.creator} />
+          <View style={styles.buttonPrice}>
+            <InsPrice price={data.price} />
+            <RectButton
+              minWidth={120}
+              fontSize={SIZES.font}
+              handlePress={() => navigation.navigate('Details', { data })}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

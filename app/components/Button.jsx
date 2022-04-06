@@ -2,20 +2,17 @@ import { StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 
 import { COLORS, SIZES, FONTS, SHADOWS } from '../constants';
 
-export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
+export const CircleButton = ({ imgUrl, onPress, ...props }) => {
   return (
-    <TouchableOpacity
-      style={[styles.circleButton, props]}
-      onPress={handlePress}
-    >
+    <TouchableOpacity style={[styles.circleButton, props]} onPress={onPress}>
       <Image source={imgUrl} style={styles.image} resizeMode="contain" />
     </TouchableOpacity>
   );
 };
 
-export const RectButton = ({ minWidth, fontSize, handlePress, ...props }) => {
+export const RectButton = ({ minWidth, fontSize, onPress, ...props }) => {
   return (
-    <TouchableOpacity style={[styles.rectButton, props]} onPress={handlePress}>
+    <TouchableOpacity style={[styles.rectButton, props]} onPress={onPress}>
       <Text style={styles.buttonText}>Add to Cart</Text>
     </TouchableOpacity>
   );

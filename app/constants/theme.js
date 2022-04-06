@@ -1,10 +1,16 @@
 export const COLORS = {
   primary: '#001F2D',
   secondary: '#4D626C',
+  light: '#f8f4f4',
+  dark: '#0c0c0c',
+  blue: 'dodgerblue',
 
   white: '#FFF',
   gray: '#74858C',
-  red: '#fc032c',
+  red: '#B83350',
+  green: '#2FA09A',
+  teal: '#44BDD0',
+  yellow: '#E3B809',
 };
 
 export const SIZES = {

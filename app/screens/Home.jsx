@@ -1,10 +1,17 @@
 import { useState } from 'react';
-import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 
 import { COLORS, InsData } from '../constants';
-import { InsCard, HomeHeader, FocusedStatusBar } from '../components';
+import {
+  InsCard,
+  HomeHeader,
+  FocusedStatusBar,
+  ListItemSeperator,
+  Screen,
+} from '../components';
+import { routes } from '../navigation';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [data, setData] = useState(InsData);
 
   const handleSearch = (value) => {
@@ -18,16 +25,32 @@ const Home = () => {
     else setData(InsData);
   };
 
-  const handleCart = () => console.log('Cart clicked');
+  const handleCat = (cat) => {
+    if (cat === 'All') return setData(InsData);
+
+    const filteredData = InsData.filter(
+      (ins) => ins.category.toLowerCase() === cat.toLowerCase()
+    );
+
+    if (filteredData.length) setData(filteredData);
+    else setData(InsData);
+  };
+
+  const handleCart = () => console.log('Add policy to cart');
   return (
-    <SafeAreaView style={styles.screen}>
+    <Screen>
       <FocusedStatusBar background={COLORS.primary} />
 
-      <View style={styles.container}>
+      <View>
         <View style={styles.list}>
           <FlatList
             data={data}
-            renderItem={({ item }) => <InsCard data={item} />}
+            renderItem={({ item }) => (
+              <InsCard
+                data={item}
+                onPress={() => navigation.navigate(routes.INS_DETAILS, item)}
+              />
+            )}
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={
@@ -35,17 +58,18 @@ const Home = () => {
                 cart={20}
                 handlePress={handleCart}
                 onSearch={handleSearch}
+                onFilter={handleCat}
               />
             }
+            ItemSeparatorComponent={ListItemSeperator}
           />
         </View>
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: { flex: 1 },
   container: { flex: 1 },
   list: { zIndex: 0 },
   subInfo: {

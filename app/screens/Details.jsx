@@ -1,46 +1,40 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  Image,
-  StatusBar,
-  FlatList,
-} from 'react-native';
-import { COLORS, SIZES, SHADOWS, FONTS, assets } from '../constants';
+import { View, StyleSheet, Image, StatusBar } from 'react-native';
+import { SIZES, SHADOWS, assets } from '../constants';
 import {
   CircleButton,
   RectButton,
   FocusedStatusBar,
   DetailDesc,
+  Screen,
+  TextInput,
 } from '../components';
 
 const Details = ({ route, navigation }) => {
-  const { data } = route.params;
+  const item = route.params;
   return (
-    <SafeAreaView style={StyleSheet.screen}>
+    <Screen>
       <FocusedStatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
         translucent={true}
       />
       <View style={styles.imageCtr}>
-        <Image source={data.image} resizeMode="cover" style={styles.image} />
+        <Image source={item.image} resizeMode="cover" style={styles.image} />
         <CircleButton
           imgUrl={assets.left}
-          handlePress={() => navigation.goBack()}
+          onPress={() => navigation.goBack()}
           left={15}
           top={StatusBar.currentHeight + 10}
         />
         <CircleButton
           imgUrl={assets.heart}
-          handlePress={() => navigation.goBack()}
+          onPress={() => console.log('Add to favorite')}
           right={15}
           top={StatusBar.currentHeight + 10}
         />
       </View>
 
-      <DetailDesc data={data} style={{ marginTop: SIZES.font }} />
+      <DetailDesc data={item} style={{ marginTop: SIZES.font }} />
       <View style={styles.button}>
         <RectButton
           minWidth={170}
@@ -49,14 +43,12 @@ const Details = ({ route, navigation }) => {
           style={styles.button}
         />
       </View>
-    </SafeAreaView>
+      <TextInput placeholder="placeholder" icon="email" />
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
   button: {
     position: 'relative',
     bottom: 0,

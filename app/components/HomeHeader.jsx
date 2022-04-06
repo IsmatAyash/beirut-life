@@ -1,22 +1,29 @@
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Image,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import { COLORS, FONTS, SIZES, assets } from '../constants';
-import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const HomeHeader = ({ handlePress, cart, onSearch }) => {
+import { COLORS, FONTS, SIZES, assets } from '../constants';
+import TextInput from './TextInput';
+import Icon from './Icon';
+import Category from './Category';
+
+const cats = [
+  { cat: 'All', bgColor: COLORS.primary, name: 'select-all' },
+  { cat: 'Motor', bgColor: COLORS.yellow, name: 'car' },
+  { cat: 'Home', bgColor: COLORS.teal, name: 'home-lock' },
+  { cat: 'Worker', bgColor: COLORS.red, name: 'account-lock-outline' },
+  { cat: 'Life', bgColor: COLORS.blue, name: 'card-account-details-outline' },
+  { cat: 'Travel', bgColor: COLORS.green, name: 'shield-airplane-outline' },
+  { cat: 'Medical', bgColor: COLORS.red, name: 'medical-bag' },
+];
+
+const HomeHeader = ({ handlePress, cart, onSearch, onFilter }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={assets.logo} resizeMode="contain" style={styles.logo} />
         <TouchableOpacity style={styles.cart} onPress={handlePress}>
           <MaterialCommunityIcons
-            name="shopping-outline"
+            name="account-heart-outline"
             size={SIZES.extraLarge + 6}
             color={COLORS.white}
           />
@@ -31,20 +38,22 @@ const HomeHeader = ({ handlePress, cart, onSearch }) => {
           Insurance policies customized for you
         </Text>
       </View>
-      <View style={styles.searchBox}>
-        <View style={styles.search}>
-          <Feather
-            name="search"
-            size={SIZES.extraLarge}
-            color={COLORS.primary}
-            style={{ marginRight: SIZES.base }}
+      <TextInput
+        icon="text-search"
+        placeholder="Search policy..."
+        onChangeText={onSearch}
+      />
+      <View style={styles.category}>
+        {cats.map((cat) => (
+          <Category
+            key={cat.cat}
+            title={cat.cat}
+            IconComponent={
+              <Icon name={cat.name} backgroundColor={cat.bgColor} />
+            }
+            onPress={() => onFilter(cat.cat)}
           />
-          <TextInput
-            placeholder="Search policies..."
-            style={{ flex: 1 }}
-            onChangeText={onSearch}
-          />
-        </View>
+        ))}
       </View>
     </View>
   );
@@ -110,5 +119,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: SIZES.font,
     paddingVertical: SIZES.small - 2,
+  },
+  category: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
   },
 });
