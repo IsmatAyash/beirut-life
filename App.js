@@ -1,7 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 
-import { AppNavigatotr, navigationTheme } from './app/navigation';
+import AppNavigatotr from './app/navigation/AppNavigator';
+import navigationTheme from './app/navigation/navigationTheme';
 
 const App = () => {
   const [loaded] = useFonts({

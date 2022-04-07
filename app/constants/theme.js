@@ -1,7 +1,8 @@
 export const COLORS = {
   primary: '#001F2D',
   secondary: '#4D626C',
-  light: '#f8f4f4',
+  lighter: '#f8f4f4',
+  light: '#fafcfb',
   dark: '#0c0c0c',
   blue: 'dodgerblue',
 
@@ -9,8 +10,9 @@ export const COLORS = {
   gray: '#74858C',
   red: '#B83350',
   green: '#2FA09A',
-  teal: '#44BDD0',
+  teal: '#01AEBF',
   yellow: '#E3B809',
+  pink: '#FF0050',
 };
 
 export const SIZES = {
@@ -32,13 +34,13 @@ export const FONTS = {
 
 export const SHADOWS = {
   light: {
-    shadowColor: COLORS.gray,
+    shadowColor: COLORS.light,
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 5,
     },
     shadowOpacity: 0.22,
-    shadowRadius: 2.22,
+    shadowRadius: 6,
 
     elevation: 3,
   },

@@ -6,14 +6,14 @@ import TextInput from './TextInput';
 import Icon from './Icon';
 import Category from './Category';
 
-const cats = [
-  { cat: 'All', bgColor: COLORS.primary, name: 'select-all' },
-  { cat: 'Motor', bgColor: COLORS.yellow, name: 'car' },
-  { cat: 'Home', bgColor: COLORS.teal, name: 'home-lock' },
-  { cat: 'Worker', bgColor: COLORS.red, name: 'account-lock-outline' },
-  { cat: 'Life', bgColor: COLORS.blue, name: 'card-account-details-outline' },
-  { cat: 'Travel', bgColor: COLORS.green, name: 'shield-airplane-outline' },
-  { cat: 'Medical', bgColor: COLORS.red, name: 'medical-bag' },
+const ctgs = [
+  { cat: 'All', bgColor: COLORS.pink, name: 'select-all' },
+  { cat: 'Motor', bgColor: COLORS.pink, name: 'car' },
+  { cat: 'Home', bgColor: COLORS.pink, name: 'home-lock' },
+  { cat: 'Worker', bgColor: COLORS.pink, name: 'account-lock-outline' },
+  { cat: 'Life', bgColor: COLORS.pink, name: 'card-account-details-outline' },
+  { cat: 'Travel', bgColor: COLORS.pink, name: 'shield-airplane-outline' },
+  { cat: 'Medical', bgColor: COLORS.pink, name: 'medical-bag' },
 ];
 
 const HomeHeader = ({ handlePress, cart, onSearch, onFilter }) => {
@@ -44,22 +44,20 @@ const HomeHeader = ({ handlePress, cart, onSearch, onFilter }) => {
         onChangeText={onSearch}
       />
       <View style={styles.category}>
-        {cats.map((cat) => (
+        {ctgs.map((ctg) => (
           <Category
-            key={cat.cat}
-            title={cat.cat}
+            key={ctg.cat}
+            title={ctg.cat}
             IconComponent={
-              <Icon name={cat.name} backgroundColor={cat.bgColor} />
+              <Icon name={ctg.name} backgroundColor={ctg.bgColor} />
             }
-            onPress={() => onFilter(cat.cat)}
+            onPress={() => onFilter(ctg.cat)}
           />
         ))}
       </View>
     </View>
   );
 };
-
-export default HomeHeader;
 
 const styles = StyleSheet.create({
   container: {
@@ -87,7 +85,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 500,
-    backgroundColor: COLORS.red,
+    backgroundColor: COLORS.pink,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -126,3 +124,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default HomeHeader;

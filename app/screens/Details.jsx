@@ -1,5 +1,5 @@
 import { View, StyleSheet, Image, StatusBar } from 'react-native';
-import { SIZES, SHADOWS, assets } from '../constants';
+import { SIZES, SHADOWS, assets, COLORS } from '../constants';
 import {
   CircleButton,
   RectButton,
@@ -8,6 +8,7 @@ import {
   Screen,
   TextInput,
 } from '../components';
+import routes from '../navigation/routes';
 
 const Details = ({ route, navigation }) => {
   const item = route.params;
@@ -41,6 +42,7 @@ const Details = ({ route, navigation }) => {
           fontSize={SIZES.large}
           {...SHADOWS.dark}
           style={styles.button}
+          onPress={() => navigation.navigate(routes.APPLICATION_FORM, item)}
         />
       </View>
       <TextInput placeholder="placeholder" icon="email" />

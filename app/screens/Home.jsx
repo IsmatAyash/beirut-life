@@ -4,12 +4,13 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { COLORS, InsData } from '../constants';
 import {
   InsCard,
+  Card,
   HomeHeader,
   FocusedStatusBar,
   ListItemSeperator,
   Screen,
 } from '../components';
-import { routes } from '../navigation';
+import routes from '../navigation/routes';
 
 const Home = ({ navigation }) => {
   const [data, setData] = useState(InsData);
@@ -43,26 +44,28 @@ const Home = ({ navigation }) => {
 
       <View>
         <View style={styles.list}>
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <InsCard
-                data={item}
-                onPress={() => navigation.navigate(routes.INS_DETAILS, item)}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={
-              <HomeHeader
-                cart={20}
-                handlePress={handleCart}
-                onSearch={handleSearch}
-                onFilter={handleCat}
-              />
-            }
-            ItemSeparatorComponent={ListItemSeperator}
-          />
+          {data && (
+            <FlatList
+              data={data}
+              renderItem={({ item }) => (
+                <Card
+                  data={item}
+                  onPress={() => navigation.navigate(routes.INS_DETAILS, item)}
+                />
+              )}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={
+                <HomeHeader
+                  cart={2}
+                  handlePress={handleCart}
+                  onSearch={handleSearch}
+                  onFilter={handleCat}
+                />
+              }
+              ItemSeparatorComponent={ListItemSeperator}
+            />
+          )}
         </View>
       </View>
     </Screen>

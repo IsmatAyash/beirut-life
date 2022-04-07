@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { COLORS, SIZES, FONTS } from '../constants';
 
 const Category = ({ title, onPress, IconComponent }) => {

@@ -1,13 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { COLORS, FONTS, SIZES } from '../constants';
+import { COLORS, SHADOWS } from '../constants';
 
 const Icon = ({
   name,
   size = 40,
   backgroundColor = COLORS.primary,
   iconColor = COLORS.white,
-  label,
 }) => {
   return (
     <View
@@ -18,6 +17,7 @@ const Icon = ({
         backgroundColor,
         alignItems: 'center',
         justifyContent: 'center',
+        ...SHADOWS.light,
       }}
     >
       <MaterialCommunityIcons name={name} color={iconColor} size={size * 0.5} />

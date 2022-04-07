@@ -13,7 +13,11 @@ const AppTextInput = ({ icon, width = '100%', ...otherProps }) => {
           style={styles.icon}
         />
       )}
-      <TextInput style={styles.textInput} {...otherProps} />
+      <TextInput
+        placeholderTextColor={COLORS.gray}
+        style={styles.textInput}
+        {...otherProps}
+      />
     </View>
   );
 };
@@ -23,12 +27,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.light,
     borderRadius: SIZES.font,
     flexDirection: 'row',
-    padding: 15,
+    padding: 12,
     marginVertical: 10,
+    alignItems: 'center',
   },
   textInput: {
     color: COLORS.dark,
     fontSize: SIZES.font,
+    width: '100%',
   },
   icon: {
     marginRight: 10,

@@ -26,7 +26,7 @@ export const InsCard = ({ data, onPress }) => {
             <RectButton
               minWidth={120}
               fontSize={SIZES.font}
-              handlePress={() => navigation.navigate('Details', { data })}
+              onPress={() => navigation.navigate('Details', { data })}
             />
           </View>
         </View>

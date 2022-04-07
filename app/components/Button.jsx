@@ -13,15 +13,26 @@ export const CircleButton = ({ imgUrl, onPress, ...props }) => {
 export const RectButton = ({ minWidth, fontSize, onPress, ...props }) => {
   return (
     <TouchableOpacity style={[styles.rectButton, props]} onPress={onPress}>
-      <Text style={styles.buttonText}>Add to Cart</Text>
+      <Text style={styles.buttonText}>Buy this policy</Text>
+    </TouchableOpacity>
+  );
+};
+
+export const Button = ({ title, onPress, color = 'primary' }) => {
+  return (
+    <TouchableOpacity
+      style={[styles.button, { backgroundColor: color }]}
+      onPress={onPress}
+    >
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   circleButton: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     backgroundColor: COLORS.white,
     position: 'absolute',
     borderRadius: SIZES.extraLarge,
@@ -30,8 +41,8 @@ const styles = StyleSheet.create({
     ...SHADOWS.light,
   },
   image: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
   },
   rectButton: {
     backgroundColor: COLORS.primary,
@@ -42,5 +53,20 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     color: COLORS.white,
     textAlign: 'center',
+  },
+  button: {
+    backgroundColor: COLORS.primary,
+    borderRadius: SIZES.large,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: SIZES.font,
+    width: '100%',
+    marginVertical: 10,
+  },
+  text: {
+    color: COLORS.white,
+    fontSize: SIZES.large,
+    textTransform: 'uppercase',
+    fontFamily: FONTS.bold,
   },
 });

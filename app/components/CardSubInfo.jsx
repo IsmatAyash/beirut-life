@@ -27,7 +27,7 @@ export const InsPrice = ({ price }) => {
 const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.semiBold,
-    fontSize: SIZES.large,
+    fontSize: SIZES.medium,
     color: COLORS.primary,
   },
   subTitle: {
