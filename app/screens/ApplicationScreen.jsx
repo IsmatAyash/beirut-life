@@ -10,6 +10,8 @@ import {
   Picker,
   Button,
 } from '../components';
+import DatePicker from '../components/DatePicker';
+import FormRadio from '../components/forms/FormRadio';
 import { assets, COLORS, FONTS } from '../constants';
 
 const validationSchema = Yup.object().shape({
@@ -61,6 +63,9 @@ const ApplicationScreen = ({ navigation }) => {
           autoCapitalize="none"
           placeholder="Date of birth"
         />
+
+        <FormRadio icon="gender-male-female" placeHolder="Gender" />
+
         <FormField
           icon="account"
           name="gender"
@@ -74,6 +79,10 @@ const ApplicationScreen = ({ navigation }) => {
           placeholder="Nationality"
           selectedItem={nash}
           onSelectItem={(item) => setNash(item)}
+        />
+        <DatePicker
+          icon="calendar-month-outline"
+          placeholderText="Date of Birth"
         />
 
         <SubmitButton title="Submit" />

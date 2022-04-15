@@ -3,7 +3,6 @@ import { StyleSheet, View, FlatList } from 'react-native';
 
 import { COLORS, InsData } from '../constants';
 import {
-  InsCard,
   Card,
   HomeHeader,
   FocusedStatusBar,
