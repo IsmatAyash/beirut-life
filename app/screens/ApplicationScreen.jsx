@@ -8,23 +8,22 @@ import {
   FormField,
   Form,
   Picker,
+  FormRadio,
+  DatePicker,
+  ApplicationDetails,
   Button,
 } from '../components';
-import DatePicker from '../components/DatePicker';
-import FormRadio from '../components/forms/FormRadio';
 import { assets, COLORS, FONTS } from '../constants';
+import routes from '../navigation/routes';
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string().required().min(4).label('Full Name'),
-  dateOfBirth: Yup.string().required().label('Date of birth'),
-  gender: Yup.string().required().label('Gender'),
-  nationality: Yup.string().required().label('Nationality'),
 });
 
 const initialValues = {
   fullName: '',
-  dateOfBirth: '',
   gender: '',
+  dateOfBirth: new Date(),
   nationality: '',
 };
 
@@ -36,7 +35,16 @@ const nats = [
 ];
 
 const ApplicationScreen = ({ navigation }) => {
-  const [nash, setNash] = useState();
+  const [citizenShip, setCitizenShip] = useState();
+  const [dob, setDob] = useState();
+  const [showAppDetails, setShowAppDetails] = useState(false);
+
+  const handleSub = (values) => {
+    console.log('Submitted', values);
+    navigation.navigate(routes.STRIPE_PAY, { data: values });
+    // setShowAppDetails(true);
+  };
+
   return (
     <Screen>
       <View style={styles.container}>
@@ -46,7 +54,7 @@ const ApplicationScreen = ({ navigation }) => {
 
       <Form
         initialValues={initialValues}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => handleSub(values)}
         validationSchema={validationSchema}
       >
         <FormField
@@ -56,33 +64,28 @@ const ApplicationScreen = ({ navigation }) => {
           autoCapitalize="none"
           placeholder="Full name"
         />
-        <FormField
-          icon="account"
-          name="dateOfBirth"
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Date of birth"
-        />
 
-        <FormRadio icon="gender-male-female" placeHolder="Gender" />
-
-        <FormField
-          icon="account"
-          name="gender"
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Gender"
-        />
-        <Picker
-          items={nats}
-          icon="apps"
-          placeholder="Nationality"
-          selectedItem={nash}
-          onSelectItem={(item) => setNash(item)}
-        />
         <DatePicker
           icon="calendar-month-outline"
           placeholderText="Date of Birth"
+          name="dateOfBirth"
+          selectedItem={dob}
+          onSelectItem={(item) => setDob(item)}
+        />
+
+        <FormRadio
+          name="gender"
+          icon="gender-male-female"
+          placeHolder="Gender"
+        />
+
+        <Picker
+          items={nats}
+          icon="apps"
+          name="nationality"
+          placeholder="Nationality"
+          selectedItem={citizenShip}
+          onSelectItem={(item) => setCitizenShip(item)}
         />
 
         <SubmitButton title="Submit" />
@@ -90,6 +93,10 @@ const ApplicationScreen = ({ navigation }) => {
           title="Back"
           color={COLORS.secondary}
           onPress={() => navigation.goBack()}
+        />
+        <ApplicationDetails
+          visible={showAppDetails}
+          setVisible={setShowAppDetails}
         />
       </Form>
     </Screen>

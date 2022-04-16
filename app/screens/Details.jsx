@@ -1,5 +1,5 @@
 import { View, StyleSheet, Image, StatusBar } from 'react-native';
-import { SIZES, SHADOWS, assets, COLORS } from '../constants';
+import { SIZES, SHADOWS, assets } from '../constants';
 import {
   CircleButton,
   RectButton,
@@ -42,6 +42,7 @@ const Details = ({ route, navigation }) => {
           fontSize={SIZES.large}
           {...SHADOWS.dark}
           style={styles.button}
+          title="Buy Now"
           onPress={() => navigation.navigate(routes.APPLICATION_FORM, item)}
         />
       </View>

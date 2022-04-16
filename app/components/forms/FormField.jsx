@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native';
 import { useFormikContext } from 'formik';
 
 import ErrorMessage from './ErrorMessage';
@@ -17,7 +16,5 @@ const FormField = ({ name, ...otherProps }) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default FormField;

@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Details from '../screens/Details';
 import ApplicationScreen from '../screens/ApplicationScreen';
+import StripePaymentScreen from '../screens/StripePaymentScreen';
 import routes from './routes';
 
 const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ const AppNavigatotr = () => (
       component={ApplicationScreen}
       options={({ route }) => ({ title: route.params.name })}
     />
+    <Stack.Screen name="StripePaymentScreen" component={StripePaymentScreen} />
   </Stack.Navigator>
 );
 

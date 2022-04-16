@@ -9,6 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useFormikContext } from 'formik';
 
 import { COLORS, SIZES } from '../constants';
 import Screen from './Screen';
@@ -16,6 +17,7 @@ import PickerItem from './PickerItem';
 
 const AppPicker = ({
   icon,
+  name,
   items,
   onSelectItem,
   placeholder,
@@ -24,6 +26,7 @@ const AppPicker = ({
   ...otherProps
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const { setFieldValue } = useFormikContext();
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
@@ -60,6 +63,7 @@ const AppPicker = ({
                 onPress={() => {
                   setModalVisible(false);
                   onSelectItem(item);
+                  setFieldValue(name, item.label);
                 }}
               />
             )}

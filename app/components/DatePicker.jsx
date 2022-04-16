@@ -8,12 +8,14 @@ import {
   Platform,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useFormikContext } from 'formik';
 import moment from 'moment';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { COLORS, FONTS, SIZES } from '../constants';
 
-const DatePicker = ({ icon, placeholderText, width = '100%' }) => {
+const DatePicker = ({ icon, name, placeholderText, width = '100%' }) => {
+  const { setFieldValue } = useFormikContext();
   const sourceMoment = moment(new Date());
   const sourceDate = sourceMoment.local().toDate();
 
@@ -29,6 +31,7 @@ const DatePicker = ({ icon, placeholderText, width = '100%' }) => {
       setDate(sourceDate);
     } else {
       setDate(moment(currentDate).local().toDate());
+      setFieldValue(name, moment(currentDate).local().toDate());
     }
   };
 

@@ -10,10 +10,20 @@ export const CircleButton = ({ imgUrl, onPress, ...props }) => {
   );
 };
 
-export const RectButton = ({ minWidth, fontSize, onPress, ...props }) => {
+export const RectButton = ({
+  minWidth,
+  fontSize,
+  onPress,
+  title,
+  color = COLORS.slate,
+  ...props
+}) => {
   return (
-    <TouchableOpacity style={[styles.rectButton, props]} onPress={onPress}>
-      <Text style={styles.buttonText}>Buy this policy</Text>
+    <TouchableOpacity
+      style={[styles.rectButton, { backgroundColor: color }, props]}
+      onPress={onPress}
+    >
+      <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -45,8 +55,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   rectButton: {
-    backgroundColor: COLORS.primary,
-    borderRadius: SIZES.extraLarge,
+    borderRadius: SIZES.base,
     padding: SIZES.small,
   },
   buttonText: {
