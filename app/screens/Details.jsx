@@ -6,7 +6,6 @@ import {
   FocusedStatusBar,
   DetailDesc,
   Screen,
-  TextInput,
 } from '../components';
 import routes from '../navigation/routes';
 
@@ -46,7 +45,6 @@ const Details = ({ route, navigation }) => {
           onPress={() => navigation.navigate(routes.APPLICATION_FORM, item)}
         />
       </View>
-      <TextInput placeholder="placeholder" icon="email" />
     </Screen>
   );
 };

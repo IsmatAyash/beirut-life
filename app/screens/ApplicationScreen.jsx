@@ -17,10 +17,12 @@ import { assets, COLORS, FONTS } from '../constants';
 import routes from '../navigation/routes';
 
 const validationSchema = Yup.object().shape({
+  policyNumber: Yup.string().required().min(4).label('Policy Number'),
   fullName: Yup.string().required().min(4).label('Full Name'),
 });
 
 const initialValues = {
+  policyNumber: '',
   fullName: '',
   gender: '',
   dateOfBirth: new Date(),
@@ -57,6 +59,14 @@ const ApplicationScreen = ({ navigation }) => {
         onSubmit={(values) => handleSub(values)}
         validationSchema={validationSchema}
       >
+        <FormField
+          icon="barcode"
+          name="policyNumber"
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="Policy Number"
+        />
+
         <FormField
           icon="account"
           name="fullName"
