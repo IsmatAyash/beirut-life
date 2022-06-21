@@ -22,6 +22,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const initialValues = {
+  title: '',
   policyNumber: '',
   fullName: '',
   gender: '',
@@ -36,10 +37,12 @@ const nats = [
   { label: 'French', value: 4 },
 ];
 
-const ApplicationScreen = ({ navigation }) => {
+const ApplicationScreen = ({ route, navigation }) => {
   const [citizenShip, setCitizenShip] = useState();
   const [dob, setDob] = useState();
   const [showAppDetails, setShowAppDetails] = useState(false);
+
+  const item = route.params
 
   const handleSub = (values) => {
     console.log('Submitted', values);

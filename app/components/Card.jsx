@@ -27,7 +27,7 @@ const Card = ({ data, onPress }) => {
           >
             {data.description}
           </Text>
-          <InsPrice price={data.price} />
+          <InsPrice premium={data.premium} fixedPremium={data.fixedPremium} />
         </View>
       </View>
     </TouchableWithoutFeedback>

@@ -5,7 +5,7 @@ import { PaymentScreen, PayButton, Screen } from '../components';
 import { API_URL } from '../Config';
 import { COLORS, FONTS, assets } from '../constants';
 import { printPolicy } from '../helpers';
-import { WebView } from 'react-native-webview';
+import routes from '../navigation/routes';
 
 import moment from 'moment';
 
@@ -14,7 +14,6 @@ const StripePaymentScreen = ({ route, navigation }) => {
   const [paymentSheetEnabled, setPaymentSheetEnabled] = useState(false);
   const [loading, setLoadng] = useState(false);
   const [clientSecret, setClientSecret] = useState();
-  const [pdfFile, setPdfFile] = useState(false);
   const { data } = route.params;
 
   const fetchPaymentSheetParams = async () => {
@@ -46,13 +45,12 @@ const StripePaymentScreen = ({ route, navigation }) => {
       Alert.alert(`Error code: ${error.code}`, error.message);
     } else {
       Alert.alert('Success', 'The payment was confirmed successfully');
-      console.log('PDF data', data);
       const policy = await printPolicy(data);
-      if (policy) setPdfFile(true);
       console.log('pdf file path', policy);
     }
     setPaymentSheetEnabled(false);
     setLoadng(false);
+    navigation.navigate(routes.HOME);
   };
 
   const initialisePaymentSheet = async () => {
@@ -124,12 +122,6 @@ const StripePaymentScreen = ({ route, navigation }) => {
             />
           </View>
         </View>
-        {pdfFile && (
-          <WebView
-            originWhitelist={['*']}
-            source={{ html: '<h1><center>Hello world</center></h1>' }}
-          />
-        )}
       </Screen>
     </PaymentScreen>
   );

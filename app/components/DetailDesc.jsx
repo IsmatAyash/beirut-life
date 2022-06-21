@@ -21,7 +21,11 @@ const DetailDesc = ({ data }) => {
     <>
       <View style={styles.details}>
         <InsTitle title={data.name} subTitle={data.creator} />
-        <InsPrice price={data.price} />
+        <InsPrice
+          premium={data.premium}
+          fixedPremium={data.fixedPremium}
+          unit={data.unit}
+        />
       </View>
       <View style={styles.description}>
         <Text style={styles.title}>Description</Text>

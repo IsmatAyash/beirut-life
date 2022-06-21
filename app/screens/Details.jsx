@@ -1,5 +1,5 @@
-import { View, StyleSheet, Image, StatusBar } from 'react-native';
-import { SIZES, SHADOWS, assets } from '../constants';
+import { View, Text, StyleSheet, Image, StatusBar } from 'react-native';
+import { SIZES, SHADOWS, FONTS, COLORS, assets } from '../constants';
 import {
   CircleButton,
   RectButton,
@@ -35,6 +35,15 @@ const Details = ({ route, navigation }) => {
       </View>
 
       <DetailDesc data={item} style={{ marginTop: SIZES.font }} />
+      <Text style={styles.title}>Covers</Text>
+      {item.covers.map((itm, index) => (
+        <Text style={styles.cover} key={index}>
+          {itm}
+        </Text>
+      ))}
+      <Text style={styles.sumInsured}>Sum Insured: {item.sumInsured}</Text>
+      {/* {item.sumInsuredRemark && <Text>{item.sumInsuredRemark}</Text>} */}
+      {/* {item.remark && <Text>{item.remark}</Text>} */}
       <View style={styles.button}>
         <RectButton
           minWidth={170}
@@ -65,6 +74,23 @@ const styles = StyleSheet.create({
     height: 373,
   },
   image: { width: '100%', height: '100%' },
+  cover: {
+    marginVertical: 1.5,
+    paddingHorizontal: SIZES.base,
+  },
+  title: {
+    fontSize: SIZES.font,
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    paddingHorizontal: SIZES.base,
+  },
+  sumInsured: {
+    marginTop: 10,
+    paddingHorizontal: SIZES.base,
+    fontSize: SIZES.font,
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+  },
 });
 
 export default Details;

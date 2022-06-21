@@ -22,6 +22,8 @@ import ThirdPartyLiab from '../assets/images/ThirdPartyLiab.jpeg';
 import BodlyInjury from '../assets/images/BodlyInjury.jpeg';
 import TotalLoss from '../assets/images/TotalLoss.jpeg';
 import travel from '../assets/images/travel.png';
+import flight from '../assets/images/flight.jpg';
+import trip from '../assets/images/trip.jpg';
 import life from '../assets/images/life.png';
 import home from '../assets/images/home.png';
 
@@ -52,4 +54,6 @@ export default {
   travel,
   life,
   home,
+  flight,
+  trip,
 };
