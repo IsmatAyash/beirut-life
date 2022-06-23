@@ -3,7 +3,12 @@ import FocusedStatusBar from './FocusedStatusBar';
 import InsCard from './InsCard';
 import Card from './Card';
 import { CircleButton, RectButton, Button } from './Button';
-import DetailDesc from './DetailDesc';
+import PolicyDescription from './details/PolicyDescription';
+import PolicyTitle from './details/PolicyTitle';
+import PolicyPremium from './details/PolicyPremium';
+import PolicyCovers from './details/PolicyCovers';
+import PolicySumInsured from './details/PolicySumInsured';
+import PolicyRemark from './details/PolicyRemark';
 import Screen from './Screen';
 import ListItemSeperator from './ListItemSeperator';
 import TextInput from './TextInput';
@@ -29,7 +34,12 @@ export {
   RectButton,
   CircleButton,
   SubmitButton,
-  DetailDesc,
+  PolicyDescription,
+  PolicyPremium,
+  PolicyTitle,
+  PolicyCovers,
+  PolicySumInsured,
+  PolicyRemark,
   Screen,
   ListItemSeperator,
   TextInput,
@@ -45,5 +55,5 @@ export {
   FormRadio,
   ApplicationDetails,
   PaymentScreen,
-  PayButton
+  PayButton,
 };

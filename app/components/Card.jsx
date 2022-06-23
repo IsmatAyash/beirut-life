@@ -6,7 +6,7 @@ import {
   Text,
 } from 'react-native';
 
-import { InsTitle, InsPrice } from './CardSubInfo';
+import { PolicyTitle, PolicyPremium } from '../components';
 import { CircleButton } from './Button';
 import { assets, COLORS, FONTS, SIZES } from '../constants';
 
@@ -17,7 +17,7 @@ const Card = ({ data, onPress }) => {
         <Image source={data.image} resizeMode="cover" style={styles.image} />
         <View style={styles.details}>
           <View style={styles.topLine}>
-            <InsTitle title={data.name} subTitle={data.creator} />
+            <PolicyTitle title={data.name} subTitle={data.creator} />
             <CircleButton imgUrl={assets.heart} right={2} top={0} />
           </View>
           <Text
@@ -27,7 +27,11 @@ const Card = ({ data, onPress }) => {
           >
             {data.description}
           </Text>
-          <InsPrice premium={data.premium} fixedPremium={data.fixedPremium} />
+          <PolicyPremium
+            premium={data.premium}
+            fixedPremium={data.fixedPremium}
+            unit={data.unit}
+          />
         </View>
       </View>
     </TouchableWithoutFeedback>

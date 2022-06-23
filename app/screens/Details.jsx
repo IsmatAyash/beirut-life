@@ -1,10 +1,15 @@
-import { View, Text, StyleSheet, Image, StatusBar } from 'react-native';
-import { SIZES, SHADOWS, FONTS, COLORS, assets } from '../constants';
+import { View, StyleSheet, Image, StatusBar } from 'react-native';
+import { SIZES, SHADOWS, assets } from '../constants';
 import {
   CircleButton,
   RectButton,
   FocusedStatusBar,
-  DetailDesc,
+  PolicyPremium,
+  PolicyTitle,
+  PolicyDescription,
+  PolicyCovers,
+  PolicySumInsured,
+  PolicyRemark,
   Screen,
 } from '../components';
 import routes from '../navigation/routes';
@@ -34,16 +39,30 @@ const Details = ({ route, navigation }) => {
         />
       </View>
 
-      <DetailDesc data={item} style={{ marginTop: SIZES.font }} />
-      <Text style={styles.title}>Covers</Text>
-      {item.covers.map((itm, index) => (
-        <Text style={styles.cover} key={index}>
-          {itm}
-        </Text>
-      ))}
-      <Text style={styles.sumInsured}>Sum Insured: {item.sumInsured}</Text>
-      {/* {item.sumInsuredRemark && <Text>{item.sumInsuredRemark}</Text>} */}
-      {/* {item.remark && <Text>{item.remark}</Text>} */}
+      <View style={styles.details}>
+        <View style={styles.title}>
+          <PolicyTitle title={item.name} subTitle={item.creator} />
+          <PolicyPremium
+            premium={item.premium}
+            fixedPremium={item.fixedPremium}
+            unit={item.unit}
+          />
+        </View>
+        <PolicyDescription
+          style={styles.subDetail}
+          description={item.description}
+        />
+        <PolicyCovers style={styles.subDetail} covers={item.covers} />
+        <PolicySumInsured
+          style={styles.subDetail}
+          sumInsured={item.sumInsured}
+          sumInsuredRemark={item.sumInsuredRemark}
+        />
+        {item.remark && (
+          <PolicyRemark style={styles.subDetail} remark={item.remark} />
+        )}
+      </View>
+
       <View style={styles.button}>
         <RectButton
           minWidth={170}
@@ -74,23 +93,12 @@ const styles = StyleSheet.create({
     height: 373,
   },
   image: { width: '100%', height: '100%' },
-  cover: {
-    marginVertical: 1.5,
-    paddingHorizontal: SIZES.base,
-  },
+  details: { marginVertical: SIZES.medium, paddingHorizontal: SIZES.base },
   title: {
-    fontSize: SIZES.font,
-    fontFamily: FONTS.semiBold,
-    color: COLORS.primary,
-    paddingHorizontal: SIZES.base,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  sumInsured: {
-    marginTop: 10,
-    paddingHorizontal: SIZES.base,
-    fontSize: SIZES.font,
-    fontFamily: FONTS.semiBold,
-    color: COLORS.primary,
-  },
+  subDetail: { marginTop: SIZES.medium },
 });
 
 export default Details;

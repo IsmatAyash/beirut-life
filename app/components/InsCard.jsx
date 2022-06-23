@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { COLORS, SIZES, SHADOWS, FONTS, assets } from '../constants';
 import { CircleButton, RectButton } from './Button';
-import { InsTitle, InsPrice } from './CardSubInfo';
+import { InsTitle, InsPrice } from './details/CardSubInfo';
 
 export const InsCard = ({ data, onPress }) => {
   const navigation = useNavigation();
