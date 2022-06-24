@@ -16,15 +16,19 @@ const Category = ({ title, onPress, IconComponent }) => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
-    fontSize: SIZES.base,
+    fontSize: SIZES.base * 1.2,
     color: COLORS.white,
-    width: 40,
+    width: 75,
     textAlign: 'center',
     marginTop: 4,
     fontFamily: FONTS.bold,
+  },
+  titleCtr: {
+    padding: 0,
+    textAlign: 'center',
   },
 });
 

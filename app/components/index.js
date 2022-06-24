@@ -1,6 +1,5 @@
 import HomeHeader from './HomeHeader';
 import FocusedStatusBar from './FocusedStatusBar';
-import InsCard from './InsCard';
 import Card from './Card';
 import { CircleButton, RectButton, Button } from './Button';
 import PolicyDescription from './details/PolicyDescription';
@@ -28,7 +27,6 @@ import PayButton from './stripe/PayButton';
 
 export {
   HomeHeader,
-  InsCard,
   FocusedStatusBar,
   Button,
   RectButton,

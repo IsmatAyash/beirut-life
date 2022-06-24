@@ -1,23 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native';
 import { COLORS, FONTS, SIZES } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
 
-const PolicyPremium = ({premium, fixedPremium, unit}) => {
+const PolicyPremium = ({ premium, fixedPremium, unit }) => {
   return (
-    <View style={styles.premiumCtr}>
-      {!fixedPremium && <Text>Starting at</Text>}
-      <Ionicons
-        name="ios-logo-usd"
-        size={SIZES.medium}
-        color={COLORS.primary}
-      />
-      <Text style={styles.premium}>{premium}</Text>
-      <Text style={styles.unit}>{unit}</Text>
+    <View>
+      <View style={styles.premiumCtr}>
+        {!fixedPremium && <Text>Starting at</Text>}
+        <Ionicons
+          name="ios-logo-usd"
+          size={SIZES.medium}
+          color={COLORS.primary}
+        />
+        <Text style={styles.premium}>{premium}</Text>
+      </View>
+      <Text>{unit}</Text>
     </View>
   );
-}
+};
 
-export default PolicyPremium
+export default PolicyPremium;
 
 const styles = StyleSheet.create({
   premiumCtr: {
@@ -28,8 +30,5 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.bold,
     fontSize: SIZES.font,
     color: COLORS.primary,
-  },
-  unit: {
-    padding: 4,
   },
 });

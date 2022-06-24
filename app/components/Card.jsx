@@ -6,7 +6,8 @@ import {
   Text,
 } from 'react-native';
 
-import { PolicyTitle, PolicyPremium } from '../components';
+import PolicyTitle from './details/PolicyTitle';
+import PolicyPremium from './details/PolicyPremium';
 import { CircleButton } from './Button';
 import { assets, COLORS, FONTS, SIZES } from '../constants';
 

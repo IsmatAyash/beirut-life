@@ -1,17 +1,17 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { COLORS, FONTS, SIZES, assets } from '../constants';
+import { COLORS, FONTS, SIZES, assets, setting } from '../constants';
 import TextInput from './TextInput';
 import Icon from './Icon';
 import Category from './Category';
 
 const ctgs = [
   { cat: 'All', bgColor: COLORS.pink, name: 'select-all' },
-  { cat: 'Motor', bgColor: COLORS.pink, name: 'car' },
-  { cat: 'Home', bgColor: COLORS.pink, name: 'home-lock' },
-  { cat: 'Worker', bgColor: COLORS.pink, name: 'account-lock-outline' },
-  { cat: 'Life', bgColor: COLORS.pink, name: 'card-account-details-outline' },
+  { cat: 'Accident', bgColor: COLORS.pink, name: 'car' },
+  // { cat: 'Home', bgColor: COLORS.pink, name: 'home-lock' },
+  // { cat: 'Worker', bgColor: COLORS.pink, name: 'account-lock-outline' },
+  // { cat: 'Life', bgColor: COLORS.pink, name: 'card-account-details-outline' },
   { cat: 'Travel', bgColor: COLORS.pink, name: 'shield-airplane-outline' },
   { cat: 'Medical', bgColor: COLORS.pink, name: 'medical-bag' },
 ];
@@ -27,16 +27,14 @@ const HomeHeader = ({ handlePress, cart, onSearch, onFilter }) => {
             size={SIZES.extraLarge + 6}
             color={COLORS.white}
           />
-          <View style={styles.badgeCtr}>
+          {/* <View style={styles.badgeCtr}>
             <Text style={styles.badge}>{cart}</Text>
-          </View>
+          </View> */}
         </TouchableOpacity>
       </View>
       <View style={styles.welcome}>
-        <Text style={styles.greeting}>Welcome to BeirutLife 👋🏽 </Text>
-        <Text style={styles.description}>
-          Insurance policies customized for you
-        </Text>
+        <Text style={styles.greeting}>{setting.greeting} </Text>
+        <Text style={styles.description}>{setting.slogan}</Text>
       </View>
       <TextInput
         icon="text-search"

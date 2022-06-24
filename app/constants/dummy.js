@@ -1,5 +1,10 @@
 import assets from './assets';
 
+const setting = {
+  greeting: 'Welcome to Beirut Life 👋🏽',
+  slogan: 'Insurance policies customized for you',
+};
+
 const InsData = [
   {
     id: 'ACC-01',
@@ -19,7 +24,7 @@ const InsData = [
     sumInsured: 7500,
     sumInsuredRemark:
       'USD 50 paid in cash as hospital benefits for a max of 15 days',
-    remark: '',
+    remark: null,
     image: assets.ThirdPartyLiab,
     category: 'Accident',
   },
@@ -38,7 +43,7 @@ const InsData = [
       'Passive War Risk - PWR ',
     ],
     sumInsured: 20000,
-    sumInsuredRemark: '',
+    sumInsuredRemark: null,
     remark:
       'You can buy both trip and flight accidents together. Please refer to the item titled "Flight and Trip Accident"',
     image: assets.flight,
@@ -59,7 +64,7 @@ const InsData = [
       'Passive War Risk - PWR ',
     ],
     sumInsured: 20000,
-    sumInsuredRemark: '',
+    sumInsuredRemark: null,
     remark:
       'You can buy both trip and flight accidents together. Please refer to the item titled "Flight and Trip Accident"',
     image: assets.trip,
@@ -80,8 +85,8 @@ const InsData = [
       'Passive War Risk - PWR ',
     ],
     sumInsured: 40000,
-    sumInsuredRemark: '',
-    remark: '',
+    sumInsuredRemark: null,
+    remark: null,
     image: assets.travel,
     category: 'Travel',
   },
@@ -97,11 +102,58 @@ const InsData = [
     covers: ['In hospital Death', 'Out of hospital'],
 
     sumInsured: 50000,
-    sumInsuredRemark: '',
-    remark: '',
+    sumInsuredRemark: null,
+    remark: null,
     image: assets.life,
     category: 'Medical',
   },
 ];
 
-export { InsData };
+const sales = [
+  {
+    id: 1,
+    insuredName: 'Ismat Ayash',
+    address: 'Choueifat',
+    telephone: '961 32646536',
+    gender: 'Male',
+    dateOfBirth: '10/12/1964',
+    nationality: 'Lebanese',
+    effectiveDate: '01/06/2022',
+    duration: 5,
+    beneficiary: 'Alexy Ayash',
+    title: 'Personal Accident',
+    policyNumber: '001/00001/ACC-01/22',
+    policyCode: 'ACC-01',
+    sumInsured: 7500,
+    policyRider: '',
+    currency: 'USD',
+    premium: 4.5,
+    exclusion: '',
+    issuanceDate: '01/06/2022',
+    expiryDate: '06/06/2022',
+  },
+  {
+    id: 2,
+    insuredName: 'Nancy Khoury',
+    address: 'Choueir',
+    telephone: '961 32645444',
+    gender: 'Female',
+    dateOfBirth: '10/12/1984',
+    nationality: 'Lebanese',
+    effectiveDate: '01/06/2022',
+    duration: 5,
+    beneficiary: 'Jone Doe',
+    title: 'Trip Accident',
+    policyNumber: '001/00002/TRV-02/22',
+    policyCode: 'TRV-02',
+    sumInsured: 8500,
+    policyRider: '',
+    currency: 'USD',
+    premium: 10,
+    exclusion: '',
+    issuanceDate: '06/06/2022',
+    expiryDate: '11/06/2022',
+  },
+];
+
+export { InsData, setting, sales };

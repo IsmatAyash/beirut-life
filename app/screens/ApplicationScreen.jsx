@@ -17,17 +17,31 @@ import { assets, COLORS, FONTS } from '../constants';
 import routes from '../navigation/routes';
 
 const validationSchema = Yup.object().shape({
-  policyNumber: Yup.string().required().min(4).label('Policy Number'),
-  fullName: Yup.string().required().min(4).label('Full Name'),
+  insuredName: Yup.string().required().min(4).label('Insured Name'),
+  telephone: Yup.string().required().label('Telephone'),
+  duration: Yup.number().required().min(1).max(90).label('Duration'),
+  beneficiary: Yup.string().required().min(4).label('Beneficiary'),
 });
 
 const initialValues = {
-  title: '',
-  policyNumber: '',
-  fullName: '',
-  gender: '',
+  insuredName: '',
+  address: '',
+  telephone: '',
   dateOfBirth: new Date(),
   nationality: '',
+  effectiveDate: new Date(),
+  duration: 0,
+  beneficiary: '',
+  title: '',
+  policyNumber: '',
+  policyCode: '',
+  sumInsured: 0,
+  policyRider: '',
+  currency: 'USD',
+  premium: 0,
+  exclusion: '',
+  issuanceDate: '',
+  expiryDate: '',
 };
 
 const nats = [
@@ -40,11 +54,17 @@ const nats = [
 const ApplicationScreen = ({ route, navigation }) => {
   const [citizenShip, setCitizenShip] = useState();
   const [dob, setDob] = useState();
+  const [effDate, setEffDate] = useState();
   const [showAppDetails, setShowAppDetails] = useState(false);
 
-  const item = route.params
+  const item = route.params;
 
   const handleSub = (values) => {
+    values.policyNumber = `001/00001/${item.id}/22`;
+    // values.expiryDate = moment(values.effectiveDate, 'DD-MM-YYYY').add(
+    //   values.duration,
+    //   'days'
+    // );
     console.log('Submitted', values);
     navigation.navigate(routes.STRIPE_PAY, { data: values });
     // setShowAppDetails(true);
@@ -54,7 +74,7 @@ const ApplicationScreen = ({ route, navigation }) => {
     <Screen>
       <View style={styles.container}>
         <Image source={assets.logo} resizeMode="contain" style={styles.logo} />
-        <Text style={styles.title}>Application Form</Text>
+        <Text style={styles.title}>{item.name}</Text>
       </View>
 
       <Form
@@ -63,19 +83,27 @@ const ApplicationScreen = ({ route, navigation }) => {
         validationSchema={validationSchema}
       >
         <FormField
-          icon="barcode"
-          name="policyNumber"
+          icon="account"
+          name="insuredName"
           autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Policy Number"
+          autoCapitalize="words"
+          placeholder="Insured name"
         />
 
         <FormField
-          icon="account"
-          name="fullName"
+          icon="phone"
+          name="telephone"
           autoCorrect={false}
           autoCapitalize="none"
-          placeholder="Full name"
+          placeholder="Telephone"
+        />
+
+        <FormField
+          icon="home-account"
+          name="address"
+          autoCorrect={false}
+          autoCapitalize="sentences"
+          placeholder="Address"
         />
 
         <DatePicker
@@ -86,11 +114,11 @@ const ApplicationScreen = ({ route, navigation }) => {
           onSelectItem={(item) => setDob(item)}
         />
 
-        <FormRadio
+        {/* <FormRadio
           name="gender"
           icon="gender-male-female"
           placeHolder="Gender"
-        />
+        /> */}
 
         <Picker
           items={nats}
@@ -99,6 +127,31 @@ const ApplicationScreen = ({ route, navigation }) => {
           placeholder="Nationality"
           selectedItem={citizenShip}
           onSelectItem={(item) => setCitizenShip(item)}
+        />
+
+        <DatePicker
+          icon="calendar-month-outline"
+          placeholderText="Effective Date"
+          name="effectiveDate"
+          selectedItem={effDate}
+          onSelectItem={(item) => setEffDate(item)}
+        />
+
+        <FormField
+          icon="clock"
+          name="duration"
+          autoCorrect={false}
+          autoCapitalize="none"
+          keyboardType="numeric"
+          placeholder="Duration"
+        />
+
+        <FormField
+          icon="account-arrow-right"
+          name="beneficiary"
+          autoCorrect={false}
+          autoCapitalize="words"
+          placeholder="Beneficiary"
         />
 
         <SubmitButton title="Submit" />

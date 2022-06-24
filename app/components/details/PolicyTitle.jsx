@@ -5,7 +5,7 @@ const PolicyTitle = ({ title, subTitle }) => {
   return (
     <View>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subTitle}>by {subTitle}</Text>
+      <Text style={styles.subTitle}>By {subTitle}</Text>
     </View>
   );
 };
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   subTitle: {
     fontFamily: FONTS.regular,
     fontSize: SIZES.small,
-    color: COLORS.primary,
+    color: COLORS.gray,
+    paddingTop: 2,
   },
 });
 
