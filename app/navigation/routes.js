@@ -4,4 +4,5 @@ export default Object.freeze({
   APPLICATION_FORM: 'ApplicationScreen',
   STRIPE_PAY: 'StripePaymentScreen',
   APP_FORM: 'AppForm',
+  PAYMENT: 'Payment',
 });

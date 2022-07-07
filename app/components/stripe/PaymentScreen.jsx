@@ -4,23 +4,24 @@ import { ActivityIndicator, ScrollView, StyleSheet, Text } from 'react-native';
 
 import { fetchPublishableKey } from '../../helpers';
 import { COLORS } from '../../constants';
+import { STRIPE_PUBLISHABLE_KEY } from '../../Config';
 
 const PaymentScreen = ({ paymentMethod, children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function initialize() {
-      const publishableKey = await fetchPublishableKey(paymentMethod);
-      if (publishableKey) {
-        await initStripe({
-          publishableKey,
-          merchantIdentifier: 'merchant.com.stripe.react.native',
-          urlScheme: 'stripe-example',
-          setUrlSchemeOnAndroid: true,
-        });
-        setLoading(false);
-      }
+      // const publishableKey = await fetchPublishableKey(paymentMethod);
+      // if (publishableKey) {
+      await initStripe({
+        publishableKey: STRIPE_PUBLISHABLE_KEY,
+        merchantIdentifier: 'beirut-life-id-in-stripe',
+        urlScheme: 'stripe-example',
+        setUrlSchemeOnAndroid: true,
+      });
+      setLoading(false);
     }
+    // }
     initialize();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

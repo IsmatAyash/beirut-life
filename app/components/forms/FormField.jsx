@@ -2,6 +2,7 @@ import { useFormikContext } from 'formik';
 
 import ErrorMessage from './ErrorMessage';
 import TextInput from '../TextInput';
+import { KeyboardAvoidingView } from 'react-native';
 
 const FormField = ({ name, ...otherProps }) => {
   const { setFieldTouched, handleChange, errors, touched } = useFormikContext();

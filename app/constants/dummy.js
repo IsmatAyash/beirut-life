@@ -27,6 +27,8 @@ const InsData = [
     remark: null,
     image: assets.ThirdPartyLiab,
     category: 'Accident',
+    intro:
+      'Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:',
   },
   {
     id: 'TRV-01',
@@ -48,6 +50,8 @@ const InsData = [
       'You can buy both trip and flight accidents together. Please refer to the item titled "Flight and Trip Accident"',
     image: assets.flight,
     category: 'Travel',
+    intro:
+      'Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:',
   },
   {
     id: 'TRV-02',
@@ -69,6 +73,8 @@ const InsData = [
       'You can buy both trip and flight accidents together. Please refer to the item titled "Flight and Trip Accident"',
     image: assets.trip,
     category: 'Travel',
+    intro:
+      'Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:',
   },
   {
     id: 'TRV-03',
@@ -89,6 +95,8 @@ const InsData = [
     remark: null,
     image: assets.travel,
     category: 'Travel',
+    intro:
+      'Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:',
   },
   {
     id: 'MED-01',
@@ -106,12 +114,16 @@ const InsData = [
     remark: null,
     image: assets.life,
     category: 'Medical',
+    intro:
+      'Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:',
   },
 ];
 
 const sales = [
   {
     id: 1,
+    intro:
+      'Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:',
     insuredName: 'Ismat Ayash',
     address: 'Choueifat',
     telephone: '961 32646536',
@@ -134,6 +146,8 @@ const sales = [
   },
   {
     id: 2,
+    intro:
+      'Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:',
     insuredName: 'Nancy Khoury',
     address: 'Choueir',
     telephone: '961 32645444',

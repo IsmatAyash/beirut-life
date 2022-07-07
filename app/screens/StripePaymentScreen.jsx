@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Alert, Text, StyleSheet, View, Image } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
+import moment from 'moment';
+
 import { PaymentScreen, PayButton, Screen } from '../components';
 import { API_URL } from '../Config';
-import { COLORS, FONTS, assets } from '../constants';
+import { COLORS, FONTS, SIZES, assets } from '../constants';
 import { printPolicy } from '../helpers';
 import routes from '../navigation/routes';
-
-import moment from 'moment';
 
 const StripePaymentScreen = ({ route, navigation }) => {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -17,18 +17,19 @@ const StripePaymentScreen = ({ route, navigation }) => {
   const { data } = route.params;
 
   const fetchPaymentSheetParams = async () => {
-    const response = await fetch(`${API_URL}/payment-sheet`, {
+    const response = await fetch(`${API_URL}/stripe/pay`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ amount: data.premium, name: data.insuredName }),
     });
-    const { paymentIntent, ephemeralKey, customer } = await response.json();
-    setClientSecret(paymentIntent);
+    const { clientSecret, name } = await response.json();
+
+    setClientSecret(clientSecret);
     return {
-      paymentIntent,
-      ephemeralKey,
-      customer,
+      clientSecret,
+      name,
     };
   };
 
@@ -46,7 +47,6 @@ const StripePaymentScreen = ({ route, navigation }) => {
     } else {
       Alert.alert('Success', 'The payment was confirmed successfully');
       const policy = await printPolicy(data);
-      console.log('pdf file path', policy);
     }
     setPaymentSheetEnabled(false);
     setLoadng(false);
@@ -54,15 +54,13 @@ const StripePaymentScreen = ({ route, navigation }) => {
   };
 
   const initialisePaymentSheet = async () => {
-    const { paymentIntent, ephemeralKey, customer } =
-      await fetchPaymentSheetParams();
+    const { clientSecret, name } = await fetchPaymentSheetParams();
 
     const { error } = await initPaymentSheet({
-      customerId: customer,
-      customerEphemeralKeySecret: ephemeralKey,
-      paymentIntentClientSecret: paymentIntent,
+      customerId: name,
+      paymentIntentClientSecret: clientSecret,
       customFlow: false,
-      merchantDisplayName: 'Example Inc.',
+      merchantDisplayName: 'Beirut Life',
       style: 'alwaysDark',
     });
     if (!error) {
@@ -88,7 +86,7 @@ const StripePaymentScreen = ({ route, navigation }) => {
               resizeMode="contain"
               style={styles.logo}
             />
-            <Text style={styles.title}>Application Form</Text>
+            <Text style={styles.title}>{data.title}</Text>
           </View>
 
           {Object.entries(data).map((item) => (
@@ -96,12 +94,14 @@ const StripePaymentScreen = ({ route, navigation }) => {
               key={item[0]}
               style={{ flexDirection: 'row', marginVertical: 3 }}
             >
-              <Text style={{ fontStyle: 'bold' }}>
-                {item[0].charAt(0).toUpperCase() + item[0].slice(1)} :{' '}
-              </Text>
-              <Text>
+              {item[0] !== 'intro' && (
+                <Text style={styles.detail}>
+                  {item[0].charAt(0).toUpperCase() + item[0].slice(1)} :{' '}
+                </Text>
+              )}
+              <Text style={styles.detailValue}>
                 {item[1] instanceof Date
-                  ? moment(item[1]).format('DD/MM/YYYY')
+                  ? new Date(moment(item[1])).toLocaleDateString('fr-FR')
                   : item[1]}
               </Text>
             </View>
@@ -155,6 +155,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
+  },
+  detail: {
+    fontFamily: FONTS.bold,
+    paddingLeft: SIZES.large,
+  },
+  detailValue: {
+    paddingLeft: SIZES.base,
   },
 });
 export default StripePaymentScreen;

@@ -1,6 +1,17 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+  Alert,
+} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import * as Yup from 'yup';
+import moment from 'moment';
 
 import {
   Screen,
@@ -15,17 +26,22 @@ import {
 } from '../components';
 import { assets, COLORS, FONTS } from '../constants';
 import routes from '../navigation/routes';
+import { StripeProvider } from '@stripe/stripe-react-native';
+import { STRIPE_PUBLISHABLE_KEY, API_URL } from '../Config';
 
 const validationSchema = Yup.object().shape({
   insuredName: Yup.string().required().min(4).label('Insured Name'),
   telephone: Yup.string().required().label('Telephone'),
   duration: Yup.number().required().min(1).max(90).label('Duration'),
   beneficiary: Yup.string().required().min(4).label('Beneficiary'),
+  email: Yup.string().email().label('Email'),
 });
 
 const initialValues = {
+  intro: null,
   insuredName: '',
   address: '',
+  email: '',
   telephone: '',
   dateOfBirth: new Date(),
   nationality: '',
@@ -40,8 +56,8 @@ const initialValues = {
   currency: 'USD',
   premium: 0,
   exclusion: '',
-  issuanceDate: '',
-  expiryDate: '',
+  issuanceDate: new Date(),
+  expiryDate: new Date(),
 };
 
 const nats = [
@@ -59,113 +75,164 @@ const ApplicationScreen = ({ route, navigation }) => {
 
   const item = route.params;
 
+  const getPolicyNumber = async () => {
+    const response = await fetch(`${API_URL}/setting/getSeq`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const { intValue } = await response.json();
+    const seq = String(intValue).padStart(5, '0');
+    const yr = new Date().getFullYear() - 2000;
+    return `001/${seq}/${item.id}/${String(yr)}`;
+  };
+
+  const mapValues = async (values) => {
+    values.intro = item.intro;
+    values.policyNumber = await getPolicyNumber();
+    values.title = item.name;
+    values.policyCode = item.id;
+    values.sumInsured = item.sumInsured;
+    values.premium = item.premium;
+    values.issuanceDate = new Date();
+    values.expiryDate = new Date(
+      moment(values.effectiveDate, 'DD-MM-YYYY').add(values.duration, 'd')
+    );
+    values.exclusion = item.exclusion;
+    values.policyRider = item.policyRider;
+    return values;
+  };
+
   const handleSub = (values) => {
-    values.policyNumber = `001/00001/${item.id}/22`;
-    // values.expiryDate = moment(values.effectiveDate, 'DD-MM-YYYY').add(
-    //   values.duration,
-    //   'days'
-    // );
-    console.log('Submitted', values);
-    navigation.navigate(routes.STRIPE_PAY, { data: values });
-    // setShowAppDetails(true);
+    try {
+      mapValues(values);
+      navigation.navigate(routes.STRIPE_PAY, { data: values });
+    } catch (err) {
+      console.error(err);
+      Alert.alert('Something went wrong, try again later!');
+    }
   };
 
   return (
-    <Screen>
-      <View style={styles.container}>
-        <Image source={assets.logo} resizeMode="contain" style={styles.logo} />
-        <Text style={styles.title}>{item.name}</Text>
-      </View>
+    <StripeProvider
+      publishableKey={STRIPE_PUBLISHABLE_KEY}
+      merchantIdentifier="Beirut Life"
+    >
+      <Screen>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <ScrollView onPress={Keyboard.dismiss}>
+            <View style={styles.container}>
+              <Image
+                source={assets.logo}
+                resizeMode="contain"
+                style={styles.logo}
+              />
+              <Text style={styles.title}>{item.name}</Text>
+            </View>
 
-      <Form
-        initialValues={initialValues}
-        onSubmit={(values) => handleSub(values)}
-        validationSchema={validationSchema}
-      >
-        <FormField
-          icon="account"
-          name="insuredName"
-          autoCorrect={false}
-          autoCapitalize="words"
-          placeholder="Insured name"
-        />
+            <Form
+              initialValues={initialValues}
+              onSubmit={(values) => handleSub(values)}
+              validationSchema={validationSchema}
+            >
+              <FormField
+                icon="account"
+                name="insuredName"
+                autoCorrect={false}
+                autoCapitalize="words"
+                placeholder="Insured name"
+              />
 
-        <FormField
-          icon="phone"
-          name="telephone"
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Telephone"
-        />
+              <FormField
+                icon="phone"
+                name="telephone"
+                autoCorrect={false}
+                autoCapitalize="none"
+                placeholder="Telephone"
+              />
 
-        <FormField
-          icon="home-account"
-          name="address"
-          autoCorrect={false}
-          autoCapitalize="sentences"
-          placeholder="Address"
-        />
+              <FormField
+                icon="home-account"
+                name="address"
+                autoCorrect={false}
+                autoCapitalize="sentences"
+                placeholder="Address"
+              />
 
-        <DatePicker
-          icon="calendar-month-outline"
-          placeholderText="Date of Birth"
-          name="dateOfBirth"
-          selectedItem={dob}
-          onSelectItem={(item) => setDob(item)}
-        />
+              <FormField
+                icon="email"
+                name="email"
+                autoCorrect={false}
+                autoCapitalize="none"
+                placeholder="Email"
+              />
 
-        {/* <FormRadio
+              <DatePicker
+                icon="calendar-month-outline"
+                placeholderText="Date of Birth"
+                name="dateOfBirth"
+                selectedItem={dob}
+                onSelectItem={(item) => setDob(item)}
+              />
+
+              {/* <FormRadio
           name="gender"
           icon="gender-male-female"
           placeHolder="Gender"
         /> */}
 
-        <Picker
-          items={nats}
-          icon="apps"
-          name="nationality"
-          placeholder="Nationality"
-          selectedItem={citizenShip}
-          onSelectItem={(item) => setCitizenShip(item)}
-        />
+              <Picker
+                items={nats}
+                icon="apps"
+                name="nationality"
+                placeholder="Nationality"
+                selectedItem={citizenShip}
+                onSelectItem={(item) => setCitizenShip(item)}
+              />
 
-        <DatePicker
-          icon="calendar-month-outline"
-          placeholderText="Effective Date"
-          name="effectiveDate"
-          selectedItem={effDate}
-          onSelectItem={(item) => setEffDate(item)}
-        />
+              <DatePicker
+                icon="calendar-month-outline"
+                placeholderText="Effective Date"
+                name="effectiveDate"
+                selectedItem={effDate}
+                onSelectItem={(item) => setEffDate(item)}
+              />
 
-        <FormField
-          icon="clock"
-          name="duration"
-          autoCorrect={false}
-          autoCapitalize="none"
-          keyboardType="numeric"
-          placeholder="Duration"
-        />
+              <FormField
+                icon="clock"
+                name="duration"
+                autoCorrect={false}
+                autoCapitalize="none"
+                keyboardType="numeric"
+                placeholder="Duration"
+              />
 
-        <FormField
-          icon="account-arrow-right"
-          name="beneficiary"
-          autoCorrect={false}
-          autoCapitalize="words"
-          placeholder="Beneficiary"
-        />
+              <FormField
+                icon="account-arrow-right"
+                name="beneficiary"
+                autoCorrect={false}
+                autoCapitalize="words"
+                placeholder="Beneficiary"
+              />
 
-        <SubmitButton title="Submit" />
-        <Button
-          title="Back"
-          color={COLORS.secondary}
-          onPress={() => navigation.goBack()}
-        />
-        <ApplicationDetails
-          visible={showAppDetails}
-          setVisible={setShowAppDetails}
-        />
-      </Form>
-    </Screen>
+              <SubmitButton title="Submit" />
+              <Button
+                title="Back"
+                color={COLORS.secondary}
+                onPress={() => navigation.goBack()}
+              />
+              <ApplicationDetails
+                visible={showAppDetails}
+                setVisible={setShowAppDetails}
+              />
+            </Form>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </Screen>
+    </StripeProvider>
   );
 };
 
