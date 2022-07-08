@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   StyleSheet,
   Text,
@@ -28,6 +28,7 @@ import { assets, COLORS, FONTS } from '../constants';
 import routes from '../navigation/routes';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import { STRIPE_PUBLISHABLE_KEY, API_URL } from '../Config';
+import { PolicyContext } from '../context/policyContext';
 
 const validationSchema = Yup.object().shape({
   insuredName: Yup.string().required().min(4).label('Insured Name'),
@@ -36,29 +37,6 @@ const validationSchema = Yup.object().shape({
   beneficiary: Yup.string().required().min(4).label('Beneficiary'),
   email: Yup.string().email().label('Email'),
 });
-
-const initialValues = {
-  intro: null,
-  insuredName: '',
-  address: '',
-  email: '',
-  telephone: '',
-  dateOfBirth: new Date(),
-  nationality: '',
-  effectiveDate: new Date(),
-  duration: 0,
-  beneficiary: '',
-  title: '',
-  policyNumber: '',
-  policyCode: '',
-  sumInsured: 0,
-  policyRider: '',
-  currency: 'USD',
-  premium: 0,
-  exclusion: '',
-  issuanceDate: new Date(),
-  expiryDate: new Date(),
-};
 
 const nats = [
   { label: 'American', value: 1 },
@@ -72,6 +50,7 @@ const ApplicationScreen = ({ route, navigation }) => {
   const [dob, setDob] = useState();
   const [effDate, setEffDate] = useState();
   const [showAppDetails, setShowAppDetails] = useState(false);
+  const { policy, updatePolicy } = useContext(PolicyContext);
 
   const item = route.params;
 
@@ -88,7 +67,7 @@ const ApplicationScreen = ({ route, navigation }) => {
     return `001/${seq}/${item.id}/${String(yr)}`;
   };
 
-  const mapValues = async (values) => {
+  const mapUpdateValues = async (values) => {
     values.intro = item.intro;
     values.policyNumber = await getPolicyNumber();
     values.title = item.name;
@@ -101,27 +80,28 @@ const ApplicationScreen = ({ route, navigation }) => {
     );
     values.exclusion = item.exclusion;
     values.policyRider = item.policyRider;
-    return values;
+    updatePolicy(values);
   };
 
-  const handleSub = (values) => {
+  const handleSub = async (values) => {
     try {
-      mapValues(values);
-      navigation.navigate(routes.STRIPE_PAY, { data: values });
+      await mapUpdateValues(values);
+      navigation.navigate(routes.STRIPE_PAY);
     } catch (err) {
       console.error(err);
       Alert.alert('Something went wrong, try again later!');
     }
   };
+  console.log('POLICY AFTER UPD in ApplicationScreen', policy);
 
   return (
-    <StripeProvider
-      publishableKey={STRIPE_PUBLISHABLE_KEY}
-      merchantIdentifier="Beirut Life"
-    >
-      <Screen>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <Screen>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <StripeProvider
+          publishableKey={STRIPE_PUBLISHABLE_KEY}
+          merchantIdentifier="Beirut Life"
         >
           <ScrollView onPress={Keyboard.dismiss}>
             <View style={styles.container}>
@@ -134,7 +114,7 @@ const ApplicationScreen = ({ route, navigation }) => {
             </View>
 
             <Form
-              initialValues={initialValues}
+              initialValues={policy}
               onSubmit={(values) => handleSub(values)}
               validationSchema={validationSchema}
             >
@@ -230,9 +210,9 @@ const ApplicationScreen = ({ route, navigation }) => {
               />
             </Form>
           </ScrollView>
-        </KeyboardAvoidingView>
-      </Screen>
-    </StripeProvider>
+        </StripeProvider>
+      </KeyboardAvoidingView>
+    </Screen>
   );
 };
 

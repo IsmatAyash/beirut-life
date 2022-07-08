@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { initStripe } from '@stripe/stripe-react-native';
 import { ActivityIndicator, ScrollView, StyleSheet, Text } from 'react-native';
 
-import { fetchPublishableKey } from '../../helpers';
 import { COLORS } from '../../constants';
 import { STRIPE_PUBLISHABLE_KEY } from '../../Config';
 

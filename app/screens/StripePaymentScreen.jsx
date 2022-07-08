@@ -1,20 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Alert, Text, StyleSheet, View, Image } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
-import moment from 'moment';
 
 import { PaymentScreen, PayButton, Screen } from '../components';
 import { API_URL } from '../Config';
 import { COLORS, FONTS, SIZES, assets } from '../constants';
 import { printPolicy } from '../helpers';
 import routes from '../navigation/routes';
+import { PolicyContext } from '../context/policyContext';
 
-const StripePaymentScreen = ({ route, navigation }) => {
+const StripePaymentScreen = ({ navigation }) => {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [paymentSheetEnabled, setPaymentSheetEnabled] = useState(false);
   const [loading, setLoadng] = useState(false);
   const [clientSecret, setClientSecret] = useState();
-  const { data } = route.params;
+  const { policy } = useContext(PolicyContext);
+
+  console.log('POLICY IN StripePaymentScreen', policy);
 
   const fetchPaymentSheetParams = async () => {
     const response = await fetch(`${API_URL}/stripe/pay`, {
@@ -22,7 +24,10 @@ const StripePaymentScreen = ({ route, navigation }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ amount: data.premium, name: data.insuredName }),
+      body: JSON.stringify({
+        amount: policy.premium,
+        name: policy.insuredName,
+      }),
     });
     const { clientSecret, name } = await response.json();
 
@@ -46,7 +51,7 @@ const StripePaymentScreen = ({ route, navigation }) => {
       Alert.alert(`Error code: ${error.code}`, error.message);
     } else {
       Alert.alert('Success', 'The payment was confirmed successfully');
-      const policy = await printPolicy(data);
+      const destPolicy = await printPolicy(policy);
     }
     setPaymentSheetEnabled(false);
     setLoadng(false);
@@ -77,53 +82,55 @@ const StripePaymentScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <PaymentScreen>
-      <Screen>
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Image
-              source={assets.logo}
-              resizeMode="contain"
-              style={styles.logo}
-            />
-            <Text style={styles.title}>{data.title}</Text>
-          </View>
-
-          {Object.entries(data).map((item) => (
-            <View
-              key={item[0]}
-              style={{ flexDirection: 'row', marginVertical: 3 }}
-            >
-              {item[0] !== 'intro' && (
-                <Text style={styles.detail}>
-                  {item[0].charAt(0).toUpperCase() + item[0].slice(1)} :{' '}
-                </Text>
-              )}
-              <Text style={styles.detailValue}>
-                {item[1] instanceof Date
-                  ? new Date(moment(item[1])).toLocaleDateString('fr-FR')
-                  : item[1]}
-              </Text>
-            </View>
-          ))}
-
-          <View style={styles.buttons}>
-            <PayButton
-              variant="primary"
-              loading={loading}
-              disabled={!paymentSheetEnabled}
-              title="Checkout"
-              onPress={openPaymentSheet}
-            />
-            <PayButton
-              variant="primary"
-              title="Back"
-              onPress={() => navigation.goBack()}
-            />
-          </View>
+    // <PaymentScreen>
+    <Screen>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={assets.logo}
+            resizeMode="contain"
+            style={styles.logo}
+          />
+          <Text style={styles.title}>{policy.title}</Text>
         </View>
-      </Screen>
-    </PaymentScreen>
+
+        {Object.entries(policy).map((item) => (
+          <View
+            key={item[0]}
+            style={{ flexDirection: 'row', marginVertical: 3 }}
+          >
+            {item[0] !== 'intro' && (
+              <Text style={styles.detail}>
+                {item[0].charAt(0).toUpperCase() + item[0].slice(1)} :{' '}
+              </Text>
+            )}
+            <Text style={styles.detailValue}>
+              {/* moment("06/22/2015", "MM/DD/YYYY", true).isValid() */}
+
+              {item[1] instanceof Date
+                ? new Date(item[1]).toLocaleDateString('fr-FR')
+                : item[1]}
+            </Text>
+          </View>
+        ))}
+
+        <View style={styles.buttons}>
+          <PayButton
+            variant="primary"
+            loading={loading}
+            disabled={!paymentSheetEnabled}
+            title="Checkout"
+            onPress={openPaymentSheet}
+          />
+          <PayButton
+            variant="primary"
+            title="Back"
+            onPress={() => navigation.goBack()}
+          />
+        </View>
+      </View>
+    </Screen>
+    // </PaymentScreen>
   );
 };
 
