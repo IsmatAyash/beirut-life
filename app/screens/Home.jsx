@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
-import { COLORS, InsData } from '../constants';
+import { COLORS } from '../constants';
 import {
   Card,
   HomeHeader,
@@ -10,30 +10,36 @@ import {
   Screen,
 } from '../components';
 import routes from '../navigation/routes';
+import { PolicyContext } from '../context/policyContext';
 
 const Home = ({ navigation }) => {
-  const [data, setData] = useState(InsData);
+  const { products } = useContext(PolicyContext);
+  const [data, setData] = useState(products);
+
+  useEffect(() => {
+    setData(products);
+  }, [products]);
 
   const handleSearch = (value) => {
-    if (!value.length) return setData(InsData);
+    if (!value.length) return setData(products);
 
-    const filteredData = InsData.filter((ins) =>
-      ins.name.toLowerCase().includes(value.toLowerCase())
+    const filteredData = products.filter((ins) =>
+      ins.title.toLowerCase().includes(value.toLowerCase())
     );
 
     if (filteredData.length) setData(filteredData);
-    else setData(InsData);
+    else setData(products);
   };
 
   const handleCat = (cat) => {
-    if (cat === 'All') return setData(InsData);
+    if (cat === 'All') return setData(products);
 
-    const filteredData = InsData.filter(
+    const filteredData = products.filter(
       (ins) => ins.category.toLowerCase() === cat.toLowerCase()
     );
 
     if (filteredData.length) setData(filteredData);
-    else setData(InsData);
+    else setData(products);
   };
 
   const handleCart = () => console.log('Add policy to cart');
@@ -52,7 +58,7 @@ const Home = ({ navigation }) => {
                   onPress={() => navigation.navigate(routes.INS_DETAILS, item)}
                 />
               )}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item._id}
               showsVerticalScrollIndicator={false}
               ListHeaderComponent={
                 <HomeHeader

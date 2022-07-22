@@ -1,9 +1,27 @@
 import { useState, createContext, useEffect } from 'react';
+import { API_URL } from '../Config';
 
 const PolicyContext = createContext();
 
 const PolicyProvider = ({ children }) => {
   const [policy, setPolicy] = useState({});
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(`${API_URL}/product`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const prods = await response.json();
+
+      setProducts(prods);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   useEffect(() => {
     setPolicy({
@@ -29,10 +47,12 @@ const PolicyProvider = ({ children }) => {
       issuanceDate: new Date(),
       expiryDate: new Date(),
     });
+    fetchProducts();
   }, []);
+
   return (
     <PolicyContext.Provider
-      value={{ policy, updatePolicy: (pol) => setPolicy(pol) }}
+      value={{ products, policy, updatePolicy: (pol) => setPolicy(pol) }}
     >
       {children}
     </PolicyContext.Provider>

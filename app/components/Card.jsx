@@ -15,10 +15,14 @@ const Card = ({ data, onPress }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
-        <Image source={data.image} resizeMode="cover" style={styles.image} />
+        <Image
+          source={{ uri: data.image }}
+          resizeMode="cover"
+          style={styles.image}
+        />
         <View style={styles.details}>
           <View style={styles.topLine}>
-            <PolicyTitle title={data.name} subTitle={data.creator} />
+            <PolicyTitle title={data.title} subTitle={data.creator} />
             <CircleButton imgUrl={assets.heart} right={2} top={0} />
           </View>
           <Text

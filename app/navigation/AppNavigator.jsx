@@ -4,8 +4,10 @@ import Home from '../screens/Home';
 import Details from '../screens/Details';
 import ApplicationScreen from '../screens/ApplicationScreen';
 import StripePaymentScreen from '../screens/StripePaymentScreen';
+import BobPayScreen from '../screens/BobPayScreen';
 import routes from './routes';
 import { PolicyProvider } from '../context/policyContext';
+import PaymentScreen from '../screens/PaymentScreen';
 
 const Stack = createStackNavigator();
 const AppNavigatotr = () => (
@@ -30,6 +32,8 @@ const AppNavigatotr = () => (
         name="StripePaymentScreen"
         component={StripePaymentScreen}
       />
+      <Stack.Screen name={routes.BOB_PAY} component={BobPayScreen} />
+      <Stack.Screen name={routes.PAYMENT} component={PaymentScreen} />
     </Stack.Navigator>
   </PolicyProvider>
 );

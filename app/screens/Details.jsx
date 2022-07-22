@@ -24,7 +24,11 @@ const Details = ({ route, navigation }) => {
         translucent={true}
       />
       <View style={styles.imageCtr}>
-        <Image source={item.image} resizeMode="cover" style={styles.image} />
+        <Image
+          source={{ uri: item.image }}
+          resizeMode="cover"
+          style={styles.image}
+        />
         <CircleButton
           imgUrl={assets.left}
           onPress={() => navigation.goBack()}

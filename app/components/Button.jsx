@@ -2,10 +2,26 @@ import { StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 
 import { COLORS, SIZES, FONTS, SHADOWS } from '../constants';
 
-export const CircleButton = ({ imgUrl, onPress, ...props }) => {
+export const CircleButton = ({
+  imgUrl,
+  onPress,
+  bgColor = COLORS.white,
+  ...props
+}) => {
   return (
-    <TouchableOpacity style={[styles.circleButton, props]} onPress={onPress}>
-      <Image source={imgUrl} style={styles.image} resizeMode="contain" />
+    <TouchableOpacity
+      style={[
+        styles.circleButton,
+        { backgroundColor: bgColor },
+        props,
+      ]}
+      onPress={onPress}
+    >
+      <Image
+        source={imgUrl}
+        style={styles.image}
+        resizeMode="contain"
+      />
     </TouchableOpacity>
   );
 };

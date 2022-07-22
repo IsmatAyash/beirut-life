@@ -1,28 +1,7 @@
-import { Alert } from 'react-native';
-import { API_URL } from './Config';
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { Asset } from 'expo-asset';
 import { manipulateAsync } from 'expo-image-manipulator';
-
-export async function fetchPublishableKey(paymentMethod) {
-  try {
-    const response = await fetch(
-      `${API_URL}/stripe-key?paymentMethod=${paymentMethod}`
-    );
-
-    const { publishableKey } = await response.json();
-
-    return publishableKey;
-  } catch (e) {
-    console.warn('Unable to fetch publishable key. Is your server running?');
-    Alert.alert(
-      'Error',
-      'Unable to fetch publishable key. Is your server running?'
-    );
-    return null;
-  }
-}
 
 const genPolicy = async (data) => {
   const asset = Asset.fromModule(require('./assets/images/logo.png'));

@@ -64,35 +64,35 @@ const ApplicationScreen = ({ route, navigation }) => {
     const { intValue } = await response.json();
     const seq = String(intValue).padStart(5, '0');
     const yr = new Date().getFullYear() - 2000;
-    return `001/${seq}/${item.id}/${String(yr)}`;
+    return `001/${seq}/${item.policyCode}/${String(yr)}`;
   };
 
   const mapUpdateValues = async (values) => {
     values.intro = item.intro;
     values.policyNumber = await getPolicyNumber();
-    values.title = item.name;
-    values.policyCode = item.id;
+    values.title = item.title;
+    values.policyCode = item.policyCode;
     values.sumInsured = item.sumInsured;
     values.premium = item.premium;
     values.issuanceDate = new Date();
     values.expiryDate = new Date(
       moment(values.effectiveDate, 'DD-MM-YYYY').add(values.duration, 'd')
     );
-    values.exclusion = item.exclusion;
-    values.policyRider = item.policyRider;
+    values.exclusion = item.exclusion || '';
+    values.policyRider = item.policyRider || '';
     updatePolicy(values);
   };
 
   const handleSub = async (values) => {
     try {
       await mapUpdateValues(values);
-      navigation.navigate(routes.STRIPE_PAY);
+      // navigation.navigate(routes.STRIPE_PAY);
+      navigation.navigate(routes.BOB_PAY);
     } catch (err) {
       console.error(err);
       Alert.alert('Something went wrong, try again later!');
     }
   };
-  console.log('POLICY AFTER UPD in ApplicationScreen', policy);
 
   return (
     <Screen>

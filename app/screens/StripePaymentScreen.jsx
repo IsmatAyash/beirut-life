@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { Alert, Text, StyleSheet, View, Image } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 
-import { PaymentScreen, PayButton, Screen } from '../components';
+import { PayButton, Screen } from '../components';
 import { API_URL } from '../Config';
 import { COLORS, FONTS, SIZES, assets } from '../constants';
 import { printPolicy } from '../helpers';
@@ -16,26 +16,43 @@ const StripePaymentScreen = ({ navigation }) => {
   const [clientSecret, setClientSecret] = useState();
   const { policy } = useContext(PolicyContext);
 
-  console.log('POLICY IN StripePaymentScreen', policy);
-
   const fetchPaymentSheetParams = async () => {
-    const response = await fetch(`${API_URL}/stripe/pay`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        amount: policy.premium,
-        name: policy.insuredName,
-      }),
-    });
-    const { clientSecret, name } = await response.json();
+    try {
+      const response = await fetch(`${API_URL}/stripe/pay`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: policy.premium,
+          name: policy.insuredName,
+        }),
+      });
+      const { clientSecret, name } = await response.json();
 
-    setClientSecret(clientSecret);
-    return {
-      clientSecret,
-      name,
-    };
+      setClientSecret(clientSecret);
+      return {
+        clientSecret,
+        name,
+      };
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const postSale = async () => {
+    try {
+      const response = await fetch(`${API_URL}/sale/add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(policy),
+      });
+      console.log('Sale successfuly posted', response);
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const openPaymentSheet = async () => {
@@ -51,7 +68,8 @@ const StripePaymentScreen = ({ navigation }) => {
       Alert.alert(`Error code: ${error.code}`, error.message);
     } else {
       Alert.alert('Success', 'The payment was confirmed successfully');
-      const destPolicy = await printPolicy(policy);
+      await postSale(policy);
+      await printPolicy(policy);
     }
     setPaymentSheetEnabled(false);
     setLoadng(false);
