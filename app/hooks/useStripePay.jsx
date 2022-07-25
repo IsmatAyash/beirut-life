@@ -51,7 +51,7 @@ const useStripePay = () => {
       Alert.alert(`Error code: ${error.code}`, error.message);
     } else {
       Alert.alert('Success', 'The payment was confirmed successfully');
-      await postSale(policy);
+      await postSale({ ...policy, orderId: '', source: 'STRIPE' });
       await printPolicy(policy);
     }
     setPaymentSheetEnabled(false);

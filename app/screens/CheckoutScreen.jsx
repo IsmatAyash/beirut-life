@@ -28,7 +28,7 @@ const CheckoutScreen = ({ navigation }) => {
   const { openPaymentSheet } = useStripePay();
 
   const handleCash = async () => {
-    await postSale(policy);
+    await postSale({ ...policy, orderId: '', source: 'CASH' });
     Alert.alert(
       'Your sale was posted successfully, please arrange for the payment to receive the policy'
     );
