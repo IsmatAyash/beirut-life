@@ -6,4 +6,5 @@ export default Object.freeze({
   BOB_PAY: 'BobPayScreen',
   APP_FORM: 'AppForm',
   PAYMENT: 'PaymentScreen',
+  CHECKOUT: 'CheckoutScreen',
 });

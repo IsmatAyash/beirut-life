@@ -51,6 +51,11 @@ export default function BobPayScreen({ navigation }) {
           <PayButton
             variant="primary"
             title="Checkout"
+            onPress={() => navigation.navigate(routes.CHECKOUT)}
+          />
+          {/* <PayButton
+            variant="primary"
+            title="BoB Gateway Pay"
             onPress={() =>
               navigation.navigate(routes.PAYMENT, {
                 sessionId: sessionId,
@@ -58,6 +63,11 @@ export default function BobPayScreen({ navigation }) {
               })
             }
           />
+          <PayButton
+            variant="primary"
+            title="Stripe Pay"
+            onPress={() => navigation.navigate(routes.STRIPE_PAY)}
+          /> */}
           <PayButton
             variant="primary"
             title="Back"

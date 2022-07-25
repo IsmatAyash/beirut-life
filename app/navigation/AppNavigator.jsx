@@ -8,6 +8,7 @@ import BobPayScreen from '../screens/BobPayScreen';
 import routes from './routes';
 import { PolicyProvider } from '../context/policyContext';
 import PaymentScreen from '../screens/PaymentScreen';
+import CheckoutScreen from '../screens/CheckoutScreen';
 
 const Stack = createStackNavigator();
 const AppNavigatotr = () => (
@@ -34,6 +35,7 @@ const AppNavigatotr = () => (
       />
       <Stack.Screen name={routes.BOB_PAY} component={BobPayScreen} />
       <Stack.Screen name={routes.PAYMENT} component={PaymentScreen} />
+      <Stack.Screen name={routes.CHECKOUT} component={CheckoutScreen} />
     </Stack.Navigator>
   </PolicyProvider>
 );

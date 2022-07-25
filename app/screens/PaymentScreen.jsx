@@ -3,36 +3,22 @@ import { StyleSheet, View, Alert, StatusBar } from 'react-native';
 import { useContext } from 'react';
 
 import { Screen, CircleButton } from '../components';
-import { BBC_PAY_URL, API_URL } from '../Config';
+import { BBC_PAY_URL, BBC_PAY_URL_LOCAL } from '../Config';
 import { PolicyContext } from '../context/policyContext';
-import { printPolicy } from '../helpers';
+import { printPolicy, postSale } from '../helpers';
 import routes from '../navigation/routes';
 import { assets, COLORS } from '../constants';
 
 const PaymentScreen = ({ navigation, route }) => {
   const { policy } = useContext(PolicyContext);
   const sessionId = route.params.sessionId;
+  const orderId = route.params.orderId;
   const { insured, premium, currency, title } = route.params.details;
 
-  const postSale = async () => {
-    try {
-      const response = await fetch(`${API_URL}/sale/add`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(policy),
-      });
-      console.log('Sale successfuly posted', response);
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
   const handlePost = async (msg) => {
-    if (msg === 'Completed') {
+    if (msg === 'Completed!') {
       Alert.alert('Success', 'The payment was confirmed successfully');
-      await postSale(policy);
+      await postSale({ ...policy, orderId: orderId, source: 'PAYGATE' });
       await printPolicy(policy);
       navigation.navigate(routes.HOME);
     } else {

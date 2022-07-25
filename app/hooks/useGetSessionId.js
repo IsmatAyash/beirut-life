@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { API_URL } from '../Config';
 
-const useGetSessionId = ({premium, currency, title}) => {
-  const [sessionId, setSessionId] = useState('');
+const useGetSessionId = ({ premium, currency, title }) => {
+  const [sessionId, setSessionId] = useState({});
 
   const fetchSession = async () => {
     try {
@@ -19,7 +19,7 @@ const useGetSessionId = ({premium, currency, title}) => {
       });
       const sid = await response.json();
 
-      setSessionId(sid.session.id);
+      setSessionId({ sessionId: sid.session.id, orderId: sid.orderId });
     } catch (err) {
       console.log(err.message);
     }
@@ -29,7 +29,7 @@ const useGetSessionId = ({premium, currency, title}) => {
     fetchSession();
   }, []);
 
-  return { sessionId };
+  return sessionId;
 };
 
 export default useGetSessionId;

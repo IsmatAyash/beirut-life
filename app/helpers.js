@@ -2,6 +2,7 @@ import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { Asset } from 'expo-asset';
 import { manipulateAsync } from 'expo-image-manipulator';
+import { API_URL } from './Config';
 
 const genPolicy = async (data) => {
   const asset = Asset.fromModule(require('./assets/images/logo.png'));
@@ -51,7 +52,7 @@ const genPolicy = async (data) => {
     </html>  `;
 };
 
-export async function printPolicy(data) {
+const printPolicy = async (data) => {
   const html = await genPolicy(data);
 
   const { uri } = await Print.printToFileAsync({
@@ -60,4 +61,21 @@ export async function printPolicy(data) {
   console.log('File has been saved to:', uri);
   await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
   return uri;
-}
+};
+
+const postSale = async (data) => {
+  try {
+    const response = await fetch(`${API_URL}/sale/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    console.log('Sale successfuly posted', response);
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export { printPolicy, postSale };
