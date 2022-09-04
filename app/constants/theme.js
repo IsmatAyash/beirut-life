@@ -1,7 +1,7 @@
 export const COLORS = {
   primary: '#001F2D',
   secondary: '#4D626C',
-  lighter: '#f8f4f4',
+  lighter: '#ede9ea',
   light: '#fafcfb',
   dark: '#0c0c0c',
   blue: 'dodgerblue',
@@ -9,7 +9,7 @@ export const COLORS = {
   white: '#FFF',
   gray: '#74858C',
   red: '#B83350',
-  green: '#2FA09A',
+  green: '#31939e',
   teal: '#01AEBF',
   yellow: '#E3B809',
   pink: '#FF0050',

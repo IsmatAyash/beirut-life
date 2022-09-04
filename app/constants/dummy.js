@@ -1,34 +1,34 @@
 import assets from './assets';
 
 const setting = {
-  greeting: 'Welcome to Beirut Life 👋🏽',
-  slogan: 'Insurance policies customized for you',
+  greeting: '& we will cover you',
+  slogan: 'TELL US WHAT YOU DO',
 };
 
 const InsData = [
   {
-    id: "ACC-01",
-    name: "Personal Accident",
-    creator: "Beirut Life",
+    id: 'ACC-01',
+    name: 'Personal Accident',
+    creator: 'Beirut Life',
     premium: 45,
-    unit: "",
+    unit: '',
     fixedPremium: true,
     description:
-      "Get the affordable personal accident insurance coverage you deserve. With Beirut Life, worry-free since you are covered while on the journey. We offer you coverage for car accidental death, permanent disability, passive war risk and hospital cash benefits.",
+      'Get the affordable personal accident insurance coverage you deserve. With Beirut Life, worry-free since you are covered while on the journey. We offer you coverage for car accidental death, permanent disability, passive war risk and hospital cash benefits.',
     covers: [
-      "Accidental Death",
-      "Total Permanent Disability due to Accident - TPD",
-      "Passive War Risk - PWR ",
-      "Hospital Cash Benefit for a max of 15 days",
+      'Accidental Death',
+      'Total Permanent Disability due to Accident - TPD',
+      'Passive War Risk - PWR ',
+      'Hospital Cash Benefit for a max of 15 days',
     ],
     sumInsured: 7500,
     sumInsuredRemark:
-      "USD 50 paid in cash as hospital benefits for a max of 15 days",
+      'USD 50 paid in cash as hospital benefits for a max of 15 days',
     remark: null,
     image: assets.ThirdPartyLiab,
-    category: "Accident",
+    category: 'Accident',
     intro:
-      "Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:",
+      'Here goes the introduction of the policy summarizing benefits and terms. replace this text with the appropriate text and sufficient explanation for the insured to understand. decide whether you would like to attach the terms and conditions with every policy you print:',
   },
   {
     id: 'TRV-01',

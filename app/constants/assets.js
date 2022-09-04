@@ -6,6 +6,7 @@ import search from '../assets/icons/search.png';
 import stripe from '../assets/icons/stripe.png';
 
 import logo from '../assets/images/logo.png';
+import logonew from '../assets/images/logonew.png';
 import bobLogo from '../assets/images/bobLogo.png';
 import nft01 from '../assets/images/nft01.png';
 import nft02 from '../assets/images/nft02.jpeg';
@@ -34,6 +35,7 @@ export default {
 
   logo,
   bobLogo,
+  logonew,
   nft01,
   nft02,
   nft03,
