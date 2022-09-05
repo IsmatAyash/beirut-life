@@ -46,7 +46,6 @@ const Home = ({ navigation }) => {
   return (
     <Screen>
       <FocusedStatusBar background={COLORS.primary} />
-
       <View>
         <View style={styles.list}>
           {data && (
@@ -58,7 +57,7 @@ const Home = ({ navigation }) => {
                   onPress={() => navigation.navigate(routes.INS_DETAILS, item)}
                 />
               )}
-              keyExtractor={(item) => item._id}
+              keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
               ListHeaderComponent={
                 <HomeHeader

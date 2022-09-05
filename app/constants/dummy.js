@@ -1,8 +1,8 @@
 import assets from './assets';
 
 const setting = {
-  greeting: '& we will cover you',
-  slogan: 'TELL US WHAT YOU DO',
+  slogan: 'Because we live everyday',
+  greeting: 'We make sure you are Safe & Covered',
 };
 
 const InsData = [

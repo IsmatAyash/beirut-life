@@ -19,7 +19,6 @@ import {
   FormField,
   Form,
   Picker,
-  FormRadio,
   DatePicker,
   ApplicationDetails,
   Button,
@@ -158,12 +157,6 @@ const ApplicationScreen = ({ route, navigation }) => {
                 onSelectItem={(item) => setDob(item)}
               />
 
-              {/* <FormRadio
-          name="gender"
-          icon="gender-male-female"
-          placeHolder="Gender"
-        /> */}
-
               <Picker
                 items={nats}
                 icon="apps"
@@ -197,13 +190,14 @@ const ApplicationScreen = ({ route, navigation }) => {
                 autoCapitalize="words"
                 placeholder="Beneficiary"
               />
-
-              <SubmitButton title="Submit" />
-              <Button
-                title="Back"
-                color={COLORS.secondary}
-                onPress={() => navigation.goBack()}
-              />
+              <View style={styles.btnGroup}>
+                <SubmitButton title="Submit" />
+                <Button
+                  title="Back"
+                  color={COLORS.slate}
+                  onPress={() => navigation.goBack()}
+                />
+              </View>
               <ApplicationDetails
                 visible={showAppDetails}
                 setVisible={setShowAppDetails}
@@ -231,7 +225,13 @@ const styles = StyleSheet.create({
   logo: {
     width: 90,
     height: 40,
+    alignSelf: 'center'
   },
+  btnGroup: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  }
 });
 
 export default ApplicationScreen;

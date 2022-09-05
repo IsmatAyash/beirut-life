@@ -7,7 +7,7 @@ const BobPay = ({ sessionId }) => {
     console.log(error);
   }, []);
 
-  window.cancelCallback = useCallback((error) => {
+  window.cancelIdleCallback = useCallback((error) => {
     console.log('cancel');
   }, []);
 

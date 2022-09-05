@@ -8,8 +8,8 @@ const AppTextInput = ({ icon, width = '100%', ...otherProps }) => {
       {icon && (
         <MaterialCommunityIcons
           name={icon}
-          size={SIZES.large}
-          color={COLORS.secondary}
+          size={SIZES.medium}
+          color={COLORS.gray}
           style={styles.icon}
         />
       )}
@@ -24,7 +24,7 @@ const AppTextInput = ({ icon, width = '100%', ...otherProps }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.light,
+    backgroundColor: COLORS.white,
     borderRadius: SIZES.font,
     flexDirection: 'row',
     padding: 12,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textInput: {
-    color: COLORS.dark,
+    color: COLORS.black,
     fontSize: SIZES.font,
     width: '100%',
   },

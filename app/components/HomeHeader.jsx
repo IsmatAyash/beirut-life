@@ -4,7 +4,6 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  ImageBackground,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -14,37 +13,33 @@ import Icon from './Icon';
 import Category from './Category';
 
 const ctgs = [
-  { cat: 'All', bgColor: COLORS.lighter, name: 'select-all' },
-  { cat: 'Accident', bgColor: COLORS.lighter, name: 'car' },
-  // { cat: 'Home', bgColor: COLORS.lighter, name: 'home-lock' },
-  // { cat: 'Worker', bgColor: COLORS.lighter, name: 'account-lock-outline' },
-  // { cat: 'Life', bgColor: COLORS.lighter, name: 'card-account-details-outline' },
-  { cat: 'Travel', bgColor: COLORS.lighter, name: 'shield-airplane-outline' },
-  { cat: 'Medical', bgColor: COLORS.lighter, name: 'medical-bag' },
+  { cat: 'All', bgColor: COLORS.orange, name: 'select-all' },
+  { cat: 'Accident', bgColor: COLORS.orange, name: 'car' },
+  // { cat: 'Home', bgColor: COLORS.orange, name: 'home-lock' },
+  // { cat: 'Worker', bgColor: COLORS.orange, name: 'account-lock-outline' },
+  // { cat: 'Life', bgColor: COLORS.orange, name: 'card-account-details-outline' },
+  { cat: 'Travel', bgColor: COLORS.orange, name: 'shield-airplane-outline' },
+  { cat: 'Medical', bgColor: COLORS.orange, name: 'medical-bag' },
 ];
 
-const HomeHeader = ({ handlePress, cart, onSearch, onFilter }) => {
+const HomeHeader = ({ handlePress, onSearch, onFilter }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={assets.logonew}
+          source={assets.logo}
           resizeMode="contain"
           style={styles.logo}
         />
-        <TouchableOpacity style={styles.cart} onPress={handlePress}>
+        <TouchableOpacity style={styles.headerIcon} onPress={handlePress}>
           <MaterialCommunityIcons
             name="account-heart-outline"
-            size={SIZES.extraLarge + 6}
-            color={COLORS.secondary}
+            size={SIZES.extraLarge + 4}
+            color={COLORS.gray}
           />
         </TouchableOpacity>
       </View>
-      <ImageBackground
-        source={assets.nft01}
-        resizeMode="cover"
-        style={styles.image}
-      >
+
         <View style={styles.welcome}>
           <Text style={styles.description}>{setting.slogan}</Text>
           <Text style={styles.greeting}>{setting.greeting} </Text>
@@ -65,14 +60,13 @@ const HomeHeader = ({ handlePress, cart, onSearch, onFilter }) => {
                 <Icon
                   name={ctg.name}
                   backgroundColor={ctg.bgColor}
-                  iconColor={COLORS.secondary}
+                  iconColor={COLORS.white}
                 />
               }
               onPress={() => onFilter(ctg.cat)}
             />
           ))}
         </View>
-      </ImageBackground>
     </View>
   );
 };
@@ -80,28 +74,29 @@ const HomeHeader = ({ handlePress, cart, onSearch, onFilter }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.green,
   },
   image: {
     flex: 1,
     justifyContent: 'center',
   },
   header: {
-    backgroundColor: COLORS.lighter,
+    backgroundColor: COLORS.white,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   logo: {
     width: 100,
-    height: 60,
+    height: 50,
   },
-  cart: {
+  headerIcon: {
     position: 'absolute',
-    top: 0,
+    top: 14,
     right: 10,
   },
   welcome: {
-    margin: SIZES.font,
+    margin: 5,
   },
   greeting: {
     fontFamily: FONTS.regular,
@@ -114,7 +109,9 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     marginTop: SIZES.base / 2,
   },
-  searchBox: { marginHorizontal: 10 },
+  searchBox: { 
+    marginHorizontal: 10, 
+  },
   category: {
     flexDirection: 'row',
     justifyContent: 'space-between',

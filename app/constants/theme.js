@@ -1,24 +1,17 @@
 export const COLORS = {
-  primary: '#001F2D',
-  secondary: '#4D626C',
-  lighter: '#ede9ea',
-  light: '#fafcfb',
-  dark: '#0c0c0c',
-  blue: 'dodgerblue',
-
   white: '#FFF',
-  gray: '#74858C',
-  red: '#B83350',
-  green: '#31939e',
-  teal: '#01AEBF',
-  yellow: '#E3B809',
+  black: '#242423',
+  gray: '#7e8fbb',
+  red: '#b83350',
+  green: '#31959b',
+  teal: '#3ab4ca',
+  orange: '#db9e34',
   pink: '#FF0050',
-
+  lightgray: '#ede9ea',
   blurple: '#635BFF',
-  blurple_dark: '#5851DF',
-  light_gray: '#F6F9FC',
-  dark_gray: '#425466',
+  blurpledark: '#5851DF',
   slate: '#0A2540',
+  blue: 'dodgerblue',
 };
 
 export const SIZES = {

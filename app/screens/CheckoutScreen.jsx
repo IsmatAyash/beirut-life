@@ -7,6 +7,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Alert,
+  TouchableHighlight,
 } from 'react-native';
 import { Screen, FocusedStatusBar, CircleButton, Icon } from '../components';
 import { assets, COLORS, FONTS, SIZES } from '../constants';
@@ -43,7 +44,7 @@ const CheckoutScreen = ({ navigation }) => {
         translucent={true}
       />
       <View style={styles.imageCtr}>
-        <Image source={assets.nft05} resizeMode="cover" style={styles.image} />
+        <Image source={assets.nft01} resizeMode="cover" style={styles.image} />
         <View style={styles.title}>
           <CircleButton
             imgUrl={assets.left}
@@ -52,7 +53,10 @@ const CheckoutScreen = ({ navigation }) => {
             top={StatusBar.currentHeight + 10}
           />
           <Text style={styles.titleText}>Payment Method</Text>
-          <Image source={assets.logo} style={{ width: 120, height: 50 }} />
+          <Image
+            source={assets.logo}
+            style={{ width: 120, height: 60, marginTop: 20 }}
+          />
         </View>
       </View>
       <View style={styles.details}>
@@ -65,8 +69,8 @@ const CheckoutScreen = ({ navigation }) => {
             })
           }
           text="Credit card Payment using BoB paygate"
-          image={assets.bobLogo}
-          width={30}
+          image={assets.logo}
+          width={110}
         />
         <PaymentMethod
           onPress={handleCash}
@@ -117,17 +121,27 @@ const styles = StyleSheet.create({
   },
   image: { width: '100%', height: '100%' },
   details: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
     marginVertical: 20,
     marginHorizontal: 10,
   },
   cash: {
     marginVertical: 10,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
+    borderWidth: 0.5,
+    borderColor: COLORS.green,
+    borderRadius: 5,
+    padding: 5,
+    backgroundColor: COLORS.white,
   },
   text: {
-    marginLeft: 10,
+    marginVertical: 5,
     fontFamily: FONTS.bold,
+    maxWidth: 200,
+    textAlign: 'center',
   },
   title: {
     position: 'absolute',

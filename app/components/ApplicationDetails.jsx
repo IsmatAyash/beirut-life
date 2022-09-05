@@ -20,7 +20,7 @@ const ApplicationDetails = ({ visible, setVisible }) => {
         <View style={styles.container}>
           <RectButton
             title="Checkout"
-            color={COLORS.blurple_dark}
+            color={COLORS.slate}
             onPress={() => navigation.navigate(routes.STRIPE_PAY)}
           />
           <RectButton title="Cancel" onPress={() => setVisible(false)} />

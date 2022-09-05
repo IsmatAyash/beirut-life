@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     minWidth: 150,
   },
   primaryContainer: {
-    backgroundColor: COLORS.dark_gray,
+    backgroundColor: COLORS.slate,
     alignItems: 'center',
   },
   text: {

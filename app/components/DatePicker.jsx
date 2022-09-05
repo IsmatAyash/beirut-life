@@ -55,7 +55,7 @@ const DatePicker = ({ icon, name, placeholderText, width = '100%' }) => {
   );
 
   const placeHolderColor = {
-    color: date === sourceDate ? COLORS.gray : COLORS.dark,
+    color: date === sourceDate ? COLORS.white : COLORS.slate,
   };
 
   return (
@@ -65,7 +65,7 @@ const DatePicker = ({ icon, name, placeholderText, width = '100%' }) => {
           <MaterialCommunityIcons
             name={icon}
             size={SIZES.large}
-            color={COLORS.secondary}
+            color={COLORS.gray}
           />
         )}
 
@@ -128,7 +128,7 @@ const DatePicker = ({ icon, name, placeholderText, width = '100%' }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.light,
+    backgroundColor: COLORS.white,
     borderRadius: SIZES.font,
     flexDirection: 'row',
     marginVertical: 10,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   spinnerDisabledLine: {
     flex: 1,
-    borderTopColor: COLORS.light,
+    borderTopColor: COLORS.lightgray,
     borderTopWidth: 1,
   },
   datePicker: { marginTop: 5 },

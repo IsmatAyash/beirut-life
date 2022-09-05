@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 10,
     marginHorizontal: 4,
-    backgroundColor: COLORS.light,
+    backgroundColor: COLORS.white,
     borderRadius: 10,
   },
   image: {

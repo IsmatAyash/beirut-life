@@ -44,7 +44,7 @@ export const RectButton = ({
   );
 };
 
-export const Button = ({ title, onPress, color = 'primary' }) => {
+export const Button = ({ title, onPress, color = 'slate' }) => {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: color }]}
@@ -80,13 +80,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.slate,
     borderRadius: SIZES.large,
     justifyContent: 'center',
     alignItems: 'center',
     padding: SIZES.font,
-    width: '100%',
-    marginVertical: 10,
+    minWidth: '40%',
+    // width: '100%',
+    // marginVertical: 10,
   },
   text: {
     color: COLORS.white,
