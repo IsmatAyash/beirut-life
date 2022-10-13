@@ -7,7 +7,6 @@ import {
   StatusBar,
   TouchableOpacity,
   Alert,
-  TouchableHighlight,
 } from 'react-native';
 import { Screen, FocusedStatusBar, CircleButton, Icon } from '../components';
 import { assets, COLORS, FONTS, SIZES } from '../constants';
@@ -44,7 +43,7 @@ const CheckoutScreen = ({ navigation }) => {
         translucent={true}
       />
       <View style={styles.imageCtr}>
-        <Image source={assets.nft01} resizeMode="cover" style={styles.image} />
+        <Image source={assets.payment} resizeMode="cover" style={styles.image} />
         <View style={styles.title}>
           <CircleButton
             imgUrl={assets.left}
@@ -55,7 +54,7 @@ const CheckoutScreen = ({ navigation }) => {
           <Text style={styles.titleText}>Payment Method</Text>
           <Image
             source={assets.logo}
-            style={{ width: 120, height: 60, marginTop: 20 }}
+            style={{ width: 120, height: 60, marginTop: 10 }}
           />
         </View>
       </View>
@@ -153,8 +152,9 @@ const styles = StyleSheet.create({
   },
   titleText: {
     marginTop: 15,
-    marginBottom: 8,
+    marginBottom: 2,
     fontSize: SIZES.large,
     fontFamily: FONTS.bold,
+    color: COLORS.white
   },
 });

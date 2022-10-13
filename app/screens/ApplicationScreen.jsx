@@ -118,6 +118,7 @@ const ApplicationScreen = ({ route, navigation }) => {
               validationSchema={validationSchema}
             >
               <FormField
+                type="email"
                 icon="account"
                 name="insuredName"
                 autoCorrect={false}
@@ -225,13 +226,13 @@ const styles = StyleSheet.create({
   logo: {
     width: 90,
     height: 40,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   btnGroup: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
-  }
+    justifyContent: 'space-evenly',
+  },
 });
 
 export default ApplicationScreen;

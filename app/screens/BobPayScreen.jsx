@@ -4,7 +4,6 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { Screen, PayButton } from '../components';
 import { PolicyContext } from '../context/policyContext';
 import { COLORS, SIZES, FONTS, assets } from '../constants';
-import useGetSessionId from '../hooks/useGetSessionId';
 import routes from '../navigation/routes';
 
 export default function BobPayScreen({ navigation }) {
@@ -15,7 +14,6 @@ export default function BobPayScreen({ navigation }) {
     title: policy.title,
     insured: policy.insuredName,
   });
-  const { sessionId } = useGetSessionId(paydetails);
 
   return (
     <Screen>
@@ -53,21 +51,6 @@ export default function BobPayScreen({ navigation }) {
             title="Checkout"
             onPress={() => navigation.navigate(routes.CHECKOUT)}
           />
-          {/* <PayButton
-            variant="primary"
-            title="BoB Gateway Pay"
-            onPress={() =>
-              navigation.navigate(routes.PAYMENT, {
-                sessionId: sessionId,
-                details: paydetails,
-              })
-            }
-          />
-          <PayButton
-            variant="primary"
-            title="Stripe Pay"
-            onPress={() => navigation.navigate(routes.STRIPE_PAY)}
-          /> */}
           <PayButton
             variant="primary"
             title="Back"

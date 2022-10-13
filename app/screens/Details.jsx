@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, StatusBar } from 'react-native';
+import { View, StyleSheet, Image, StatusBar, ScrollView } from 'react-native';
 import { SIZES, SHADOWS, assets } from '../constants';
 import {
   CircleButton,
@@ -16,6 +16,8 @@ import routes from '../navigation/routes';
 
 const Details = ({ route, navigation }) => {
   const item = route.params;
+  const imageUri = item.image || null;
+
   return (
     <Screen>
       <FocusedStatusBar
@@ -25,7 +27,7 @@ const Details = ({ route, navigation }) => {
       />
       <View style={styles.imageCtr}>
         <Image
-          source={{ uri: item.image }}
+          source={imageUri ? { uri: item.image } : assets.imagePlaceholder}
           resizeMode="cover"
           style={styles.image}
         />
@@ -42,41 +44,42 @@ const Details = ({ route, navigation }) => {
           top={StatusBar.currentHeight + 10}
         />
       </View>
+      <ScrollView>
+        <View style={styles.details}>
+          <View style={styles.title}>
+            <PolicyTitle title={item.name} subTitle={item.creator} />
+            <PolicyPremium
+              premium={item.premium}
+              fixedPremium={item.fixedPremium}
+              unit={item.unit}
+            />
+          </View>
+          <PolicyDescription
+            style={styles.subDetail}
+            description={item.description}
+          />
+          <PolicyCovers style={styles.subDetail} covers={item.covers} />
+          <PolicySumInsured
+            style={styles.subDetail}
+            sumInsured={item.sumInsured}
+            sumInsuredRemark={item.sumInsuredRemark}
+          />
+          {item.remark && (
+            <PolicyRemark style={styles.subDetail} remark={item.remark} />
+          )}
+        </View>
 
-      <View style={styles.details}>
-        <View style={styles.title}>
-          <PolicyTitle title={item.name} subTitle={item.creator} />
-          <PolicyPremium
-            premium={item.premium}
-            fixedPremium={item.fixedPremium}
-            unit={item.unit}
+        <View style={styles.button}>
+          <RectButton
+            minWidth={170}
+            fontSize={SIZES.large}
+            {...SHADOWS.dark}
+            style={styles.button}
+            title="Buy Now"
+            onPress={() => navigation.navigate(routes.APPLICATION_FORM, item)}
           />
         </View>
-        <PolicyDescription
-          style={styles.subDetail}
-          description={item.description}
-        />
-        <PolicyCovers style={styles.subDetail} covers={item.covers} />
-        <PolicySumInsured
-          style={styles.subDetail}
-          sumInsured={item.sumInsured}
-          sumInsuredRemark={item.sumInsuredRemark}
-        />
-        {item.remark && (
-          <PolicyRemark style={styles.subDetail} remark={item.remark} />
-        )}
-      </View>
-
-      <View style={styles.button}>
-        <RectButton
-          minWidth={170}
-          fontSize={SIZES.large}
-          {...SHADOWS.dark}
-          style={styles.button}
-          title="Buy Now"
-          onPress={() => navigation.navigate(routes.APPLICATION_FORM, item)}
-        />
-      </View>
+      </ScrollView>
     </Screen>
   );
 };

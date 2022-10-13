@@ -9,6 +9,7 @@ import logoIcon from '../assets/icons/logoIcon.png';
 import logo from '../assets/images/logo.png';
 import bobLogo from '../assets/images/bobLogo.png';
 import woman from '../assets/images/woman.jpg';
+import payment from '../assets/images/payment.jpg';
 import nft01 from '../assets/images/nft01.png';
 import nft02 from '../assets/images/nft02.jpeg';
 import nft03 from '../assets/images/nft03.jpeg';
@@ -16,6 +17,7 @@ import nft04 from '../assets/images/nft04.jpeg';
 import nft05 from '../assets/images/nft05.jpeg';
 import nft06 from '../assets/images/nft06.jpeg';
 import nft07 from '../assets/images/nft07.jpeg';
+import imagePlaceholder from '../assets/images/imagePlaceholder.png';
 
 import ThirdPartyLiab from '../assets/images/ThirdPartyLiab.jpeg';
 import BodlyInjury from '../assets/images/BodlyInjury.jpeg';
@@ -34,10 +36,12 @@ export default {
   search,
   stripe,
   logoIcon,
+  imagePlaceholder,
 
   logo,
   bobLogo,
   woman,
+  payment,
   nft01,
   nft02,
   nft03,

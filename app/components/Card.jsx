@@ -12,11 +12,12 @@ import { CircleButton } from './Button';
 import { assets, COLORS, FONTS, SIZES } from '../constants';
 
 const Card = ({ data, onPress }) => {
+  const imageUri = data.image || null;
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
         <Image
-          source={{ uri: data.image }}
+          source={imageUri ? { uri: imageUri } : assets.imagePlaceholder}
           resizeMode="cover"
           style={styles.image}
         />
