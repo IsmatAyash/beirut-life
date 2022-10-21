@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   btnText: {
     position: 'absolute',
     top: 0,
-    height: 15,
+    height: 30,
     paddingHorizontal: 20,
     marginBottom: 5,
     flexDirection: 'row',

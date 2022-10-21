@@ -49,7 +49,7 @@ const ApplicationScreen = ({ route, navigation }) => {
   const [dob, setDob] = useState();
   const [effDate, setEffDate] = useState();
   const [showAppDetails, setShowAppDetails] = useState(false);
-  const { policy, updatePolicy } = useContext(PolicyContext);
+  const { policy, updatePolicy, coverages } = useContext(PolicyContext);
 
   const item = route.params;
 
@@ -63,14 +63,14 @@ const ApplicationScreen = ({ route, navigation }) => {
     const { intValue } = await response.json();
     const seq = String(intValue).padStart(5, '0');
     const yr = new Date().getFullYear() - 2000;
-    return `001/${seq}/${item.policyCode}/${String(yr)}`;
+    return `001/${seq}/${item.productCode}/${String(yr)}`;
   };
 
   const mapUpdateValues = async (values) => {
     values.intro = item.intro;
     values.policyNumber = await getPolicyNumber();
     values.title = item.title;
-    values.policyCode = item.policyCode;
+    values.productCode = item.productCode;
     values.sumInsured = item.sumInsured;
     values.premium = item.premium;
     values.issuanceDate = new Date();
@@ -83,6 +83,23 @@ const ApplicationScreen = ({ route, navigation }) => {
   };
 
   const handleSub = async (values) => {
+    console.log('values', values);
+    if (!values.title.includes('Personal')) {
+      const age = new Date().getFullYear() - values.dateOfBirth.getFullYear();
+      if (age < 18 || age > 55) {
+        Alert.alert(
+          'Sorry cannot proceed! To apply for this policy your age should be between 18 and 55'
+        );
+        return;
+      }
+    }
+    if (values.productCode.includes('SCH')) {
+      const sch = coverages.filter((c) => c.productCode === values.productCode);
+      values.sumInsured =
+        (sch.minAge -
+          (new Date().getFullYear - values.dateOfBirth.getFullYear())) *
+        sch.sumInsuredMultiplier;
+    }
     try {
       await mapUpdateValues(values);
       // navigation.navigate(routes.STRIPE_PAY);
@@ -149,7 +166,7 @@ const ApplicationScreen = ({ route, navigation }) => {
                 autoCapitalize="none"
                 placeholder="Email"
               />
-
+              <Text>Date of Birth</Text>
               <DatePicker
                 icon="calendar-month-outline"
                 placeholderText="Date of Birth"
@@ -166,7 +183,7 @@ const ApplicationScreen = ({ route, navigation }) => {
                 selectedItem={citizenShip}
                 onSelectItem={(item) => setCitizenShip(item)}
               />
-
+              <Text>Effective Date</Text>
               <DatePicker
                 icon="calendar-month-outline"
                 placeholderText="Effective Date"

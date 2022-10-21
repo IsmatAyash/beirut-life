@@ -47,7 +47,7 @@ const Details = ({ route, navigation }) => {
       <ScrollView>
         <View style={styles.details}>
           <View style={styles.title}>
-            <PolicyTitle title={item.name} subTitle={item.creator} />
+            <PolicyTitle title={item.title} subTitle={item.creator} />
             <PolicyPremium
               premium={item.premium}
               fixedPremium={item.fixedPremium}
@@ -64,9 +64,9 @@ const Details = ({ route, navigation }) => {
             sumInsured={item.sumInsured}
             sumInsuredRemark={item.sumInsuredRemark}
           />
-          {item.remark && (
+          {item.remark ? (
             <PolicyRemark style={styles.subDetail} remark={item.remark} />
-          )}
+          ) : null}
         </View>
 
         <View style={styles.button}>
