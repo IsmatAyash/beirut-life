@@ -22,7 +22,7 @@ const PolicyDescription = ({ description, style }) => {
       <PolicyHeader header="Description" />
       <Text style={styles.bodyText}>
         {text}
-        {!more && '...'}
+        {!more ? '...' : null}
         <Text style={styles.readMore} onPress={handleMore}>
           {more ? ' Show less' : 'Read more'}
         </Text>

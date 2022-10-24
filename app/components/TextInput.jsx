@@ -5,14 +5,14 @@ import { COLORS, SIZES } from '../constants';
 const AppTextInput = ({ icon, width = '100%', ...otherProps }) => {
   return (
     <View style={[styles.container, { width }]}>
-      {icon && (
+      {icon ? (
         <MaterialCommunityIcons
           name={icon}
           size={SIZES.medium}
           color={COLORS.gray}
           style={styles.icon}
         />
-      )}
+      ) : null}
       <TextInput
         placeholderTextColor={COLORS.gray}
         style={styles.textInput}

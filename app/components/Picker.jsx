@@ -31,14 +31,14 @@ const AppPicker = ({
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
         <View style={[styles.container, { width }]}>
-          {icon && (
+          {icon ? (
             <MaterialCommunityIcons
               name={icon}
               size={SIZES.large}
               color={COLORS.secondary}
               style={styles.icon}
             />
-          )}
+          ) : null}
           {selectedItem ? (
             <Text style={styles.text}>{selectedItem.label}</Text>
           ) : (

@@ -48,7 +48,7 @@ const Home = ({ navigation }) => {
       <FocusedStatusBar background={COLORS.primary} />
       <View>
         <View style={styles.list}>
-          {data && (
+          {data ? (
             <FlatList
               data={data}
               renderItem={({ item }) => (
@@ -69,7 +69,7 @@ const Home = ({ navigation }) => {
               }
               ItemSeparatorComponent={ListItemSeperator}
             />
-          )}
+          ) : null}
         </View>
       </View>
     </Screen>

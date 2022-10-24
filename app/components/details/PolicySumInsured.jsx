@@ -9,9 +9,9 @@ const PolicySumInsured = ({ sumInsured, sumInsuredRemark, style }) => {
       <Text style={styles.bodyText}>
         Total value: ${sumInsured.toLocaleString(2)}
       </Text>
-      {sumInsuredRemark && (
+      {sumInsuredRemark ? (
         <Text style={styles.remark}>{sumInsuredRemark}</Text>
-      )}
+      ) : null}
     </View>
   );
 };

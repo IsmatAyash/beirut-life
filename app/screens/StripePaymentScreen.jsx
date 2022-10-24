@@ -119,11 +119,11 @@ const StripePaymentScreen = ({ navigation }) => {
             key={item[0]}
             style={{ flexDirection: 'row', marginVertical: 3 }}
           >
-            {item[0] !== 'intro' && (
+            {item[0] !== 'intro' ? (
               <Text style={styles.detail}>
                 {item[0].charAt(0).toUpperCase() + item[0].slice(1)} :{' '}
               </Text>
-            )}
+            ) : null}
             <Text style={styles.detailValue}>
               {/* moment("06/22/2015", "MM/DD/YYYY", true).isValid() */}
 

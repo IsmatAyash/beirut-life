@@ -61,13 +61,13 @@ const DatePicker = ({ icon, name, placeholderText, width = '100%' }) => {
   return (
     <TouchableHighlight activeOpacity={0} onPress={() => setShow(true)}>
       <View style={[styles.container, width]}>
-        {icon && (
+        {icon ? (
           <MaterialCommunityIcons
             name={icon}
             size={SIZES.large}
             color={COLORS.gray}
           />
-        )}
+        ) : null}
 
         <Text style={[styles.text, placeHolderColor]}>
           {date !== sourceDate

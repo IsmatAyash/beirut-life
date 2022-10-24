@@ -6,7 +6,7 @@ const PolicyPremium = ({ premium, fixedPremium, unit }) => {
   return (
     <View>
       <View style={styles.premiumCtr}>
-        {!fixedPremium && <Text>Starting at</Text>}
+        {!fixedPremium ? <Text>Starting at</Text> : null}
         <Ionicons
           name="ios-logo-usd"
           size={SIZES.medium}
