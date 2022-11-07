@@ -1,5 +1,5 @@
 import assets from './assets';
 import { COLORS, SHADOWS, SIZES, FONTS } from './theme';
-import { InsData, setting } from './dummy';
+import { setting, commonTerms } from './staticTerms';
 
-export { assets, COLORS, SHADOWS, SIZES, FONTS, InsData, setting };
+export { assets, COLORS, SHADOWS, SIZES, FONTS, setting, commonTerms };

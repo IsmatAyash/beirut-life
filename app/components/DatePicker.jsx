@@ -14,7 +14,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { COLORS, FONTS, SIZES } from '../constants';
 
-const DatePicker = ({ icon, name, placeholderText, width = '100%' }) => {
+const DatePicker = ({ icon, name, placeholderText, label, width = '100%' }) => {
   const { setFieldValue } = useFormikContext();
   const sourceMoment = moment(new Date());
   const sourceDate = sourceMoment.local().toDate();
@@ -59,70 +59,73 @@ const DatePicker = ({ icon, name, placeholderText, width = '100%' }) => {
   };
 
   return (
-    <TouchableHighlight activeOpacity={0} onPress={() => setShow(true)}>
-      <View style={[styles.container, width]}>
-        {icon ? (
-          <MaterialCommunityIcons
-            name={icon}
-            size={SIZES.large}
-            color={COLORS.gray}
-          />
-        ) : null}
+    <>
+      <Text style={styles.styledLabel}>{label}</Text>
+      <TouchableHighlight activeOpacity={0} onPress={() => setShow(true)}>
+        <View style={[styles.container, width]}>
+          {icon ? (
+            <MaterialCommunityIcons
+              name={icon}
+              size={SIZES.large}
+              color={COLORS.gray}
+            />
+          ) : null}
 
-        <Text style={[styles.text, placeHolderColor]}>
-          {date !== sourceDate
-            ? moment(date).format('DD/MM/YYYY')
-            : placeholderText}
-        </Text>
-        {Platform.OS === 'android' && show && renderDatePicker()}
-        {Platform.OS === 'ios' && (
-          <Modal
-            transparent={true}
-            animationType="slide"
-            visible={show}
-            supportedOrientations={['portrait']}
-            onRequestClose={() => setShow(false)}
-          >
-            <View style={styles.spinner}>
-              <TouchableHighlight
-                activeOpacity={1}
-                visible={show}
-                onPress={() => setShow(false)}
-                style={styles.spinnerActiveLine}
-              >
+          <Text style={[styles.text, placeHolderColor]}>
+            {date !== sourceDate
+              ? moment(date).format('DD/MM/YYYY')
+              : placeholderText}
+          </Text>
+          {Platform.OS === 'android' && show && renderDatePicker()}
+          {Platform.OS === 'ios' && (
+            <Modal
+              transparent={true}
+              animationType="slide"
+              visible={show}
+              supportedOrientations={['portrait']}
+              onRequestClose={() => setShow(false)}
+            >
+              <View style={styles.spinner}>
                 <TouchableHighlight
-                  underlayColor={COLORS.white}
-                  onPress={() => console.log('date clicked')}
-                  style={styles.spinnerDisabledLine}
+                  activeOpacity={1}
+                  visible={show}
+                  onPress={() => setShow(false)}
+                  style={styles.spinnerActiveLine}
                 >
-                  <View style={styles.pickerBox}>
-                    <View style={styles.datePicker}>
-                      <View style={{ marginTop: 10 }}>
-                        {renderDatePicker()}
+                  <TouchableHighlight
+                    underlayColor={COLORS.white}
+                    onPress={() => console.log('date clicked')}
+                    style={styles.spinnerDisabledLine}
+                  >
+                    <View style={styles.pickerBox}>
+                      <View style={styles.datePicker}>
+                        <View style={{ marginTop: 10 }}>
+                          {renderDatePicker()}
+                        </View>
+                        <TouchableHighlight
+                          underlayColor={'transparent'}
+                          style={[styles.btnText, styles.btnCancel]}
+                          onPress={onCancel}
+                        >
+                          <Text style={styles.cancel}>CANCEL</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                          underlayColor={'transparent'}
+                          style={[styles.btnText, styles.btnDone]}
+                          onPress={onDone}
+                        >
+                          <Text style={styles.done}>OK</Text>
+                        </TouchableHighlight>
                       </View>
-                      <TouchableHighlight
-                        underlayColor={'transparent'}
-                        style={[styles.btnText, styles.btnCancel]}
-                        onPress={onCancel}
-                      >
-                        <Text style={styles.cancel}>CANCEL</Text>
-                      </TouchableHighlight>
-                      <TouchableHighlight
-                        underlayColor={'transparent'}
-                        style={[styles.btnText, styles.btnDone]}
-                        onPress={onDone}
-                      >
-                        <Text style={styles.done}>OK</Text>
-                      </TouchableHighlight>
                     </View>
-                  </View>
+                  </TouchableHighlight>
                 </TouchableHighlight>
-              </TouchableHighlight>
-            </View>
-          </Modal>
-        )}
-      </View>
-    </TouchableHighlight>
+              </View>
+            </Modal>
+          )}
+        </View>
+      </TouchableHighlight>
+    </>
   );
 };
 
@@ -166,6 +169,7 @@ const styles = StyleSheet.create({
   btnDone: { right: 0 },
   done: { fontFamily: FONTS.bold, color: COLORS.blue },
   cancel: { fontFamily: FONTS.bold, color: COLORS.blue },
+  styledLabel: { marginLeft: 10, fontWeight: 'bold' },
 });
 
 export default DatePicker;

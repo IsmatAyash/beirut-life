@@ -67,13 +67,13 @@ const PolicyProvider = ({ children }) => {
   useEffect(() => {
     setPolicy({
       intro: null,
-      insuredName: '',
-      address: '',
-      telephone: '',
-      email: '',
+      insuredName: 'Ismat Ayash',
+      address: 'Kobeh choueifat',
+      telephone: '03264699',
+      email: 'oam@oam.com',
       duration: 0,
-      beneficiary: '',
-      nationality: '',
+      beneficiary: 'Alexy',
+      nationality: 'Lebanese',
       dateOfBirth: new Date(),
       effectiveDate: new Date(),
       title: '',
@@ -86,6 +86,8 @@ const PolicyProvider = ({ children }) => {
       exclusion: '',
       issuanceDate: new Date(),
       expiryDate: new Date(),
+      childName: '',
+      childBdate: new Date(),
     });
     fetchProducts();
     fetchCoverage();

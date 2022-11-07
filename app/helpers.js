@@ -3,6 +3,44 @@ import { shareAsync } from 'expo-sharing';
 import { Asset } from 'expo-asset';
 import { manipulateAsync } from 'expo-image-manipulator';
 import { API_URL } from './Config';
+import { commonTerms as ct } from './constants';
+
+const definitions = () => {
+  let para = '<h4>Clause 1: DEFINITIONS</h4>';
+  for (const [key, value] of Object.entries(ct.defs)) {
+    para += `
+    <p>
+      ${
+        key === 'list'
+          ? `<ol>${value.reduce(
+              (ele, item) => (ele += `<li>${item}`),
+              ''
+            )}</ol>`
+          : `<p><strong>${key}</strong>${value}</p>`
+      }
+    </p>
+    `;
+  }
+  return para;
+};
+
+const Clauses = () => {
+  let para = '';
+  for (const [key, value] of Object.entries(ct.clauses)) {
+    para += `<p><strong>${key}</strong></p>
+      <article class="clause-1">
+            ${
+              key === 'list'
+                ? `<ol>${value.reduce(
+                    (ele, item) => (ele += `<li>${item}`),
+                    ''
+                  )}</ol>`
+                : `<p>${value}</p>`
+            }      
+      </article>`;
+  }
+  return para;
+};
 
 const genPolicy = async (data) => {
   const asset = Asset.fromModule(require('./assets/images/logo.png'));
@@ -19,6 +57,9 @@ const genPolicy = async (data) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
       </head>
       <style>
+        body {
+          font: normal 10px Verdana, Arial, sans-serif;
+        }
         .pdf-header {
           padding-left: 10px;
         }
@@ -26,29 +67,96 @@ const genPolicy = async (data) => {
         .pdf-value {
           font-weight: bold;
         }
+
+        .general-terms-h1 {
+          text-align: center;
+        }
+
+        .line-wrap {
+          word-wrap: break-word;
+        }
+
+        .clause-1 {
+          margin-top: 2px;
+        }
+        .signatures {
+          margin-top: 15px;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .signature-beirut,
+        .signature-insured {
+          font-weight: bold;
+          border-top:1px solid black;
+          width: 200px;
+        }
       </style>
       <body >
       <div style='display: flex; flex-direction: column;' >
-        <img  src="data:image/jpeg;base64,${image.base64}"  style="width: 20vw;" />
-        <h1 style='text-align: center; padding: 50px; font-family: Helvatica Neue; font-weight: normal;'>${data.title}</h1>
+        <img  src="data:image/jpeg;base64,${
+          image.base64
+        }"  style="width: 20vw;" />
+        <h1 style='text-align: center; padding: 50px; font-family: Helvatica Neue; font-weight: normal;'>${
+          data.title
+        }</h1>
       <div>${data.intro}</div>
       </div>
         <br />
-        <div class="pdf-header">Policy Number : <span class="pdf-value">${data.policyNumber}</span></div>
-        <div class="pdf-header">Insured Name : <span class="pdf-value">${data.insuredName}</span> </div>
-        <div class="pdf-header">Address :  <span class="pdf-value">${data.address}</span></div>
-        <div class="pdf-header">Telephone :  <span class="pdf-value">${data.telephone}</span></div>
-        <div class="pdf-header">Date of Birth :  <span class="pdf-value">${data.dateOfBirth}</span></div>
-        <div class="pdf-header">Nationality :  <span class="pdf-value">${data.nationality}</span></div>
-        <div class="pdf-header">Effective Date : <span class="pdf-value">${data.effectiveDate}</span></div>
-        <div class="pdf-header">Duration : <span class="pdf-value">${data.duration}</span></div>
-        <div class="pdf-header">Beneficiary : <span class="pdf-value">${data.beneficiary}</span></div>
-        <div class="pdf-header">Sum Insured : <span class="pdf-value">${data.sumInsured}</span></div>
-        <div class="pdf-header">Currency : <span class="pdf-value">${data.currency}</span></div>
-        <div class="pdf-header">Premium : <span class="pdf-value">${data.premium}</span></div>
-        <div class="pdf-header">Issuance Date : <span class="pdf-value">${data.issuanceDate}</span></div>
-        <div class="pdf-header">Expiry Date : <span class="pdf-value">${data.expiryDate}</span></div>
+        <div class="pdf-header">Policy Number : <span class="pdf-value">${
+          data.policyNumber
+        }</span></div>
+        <div class="pdf-header">Insured Name : <span class="pdf-value">${
+          data.insuredName
+        }</span> </div>
+        <div class="pdf-header">Address :  <span class="pdf-value">${
+          data.address
+        }</span></div>
+        <div class="pdf-header">Telephone :  <span class="pdf-value">${
+          data.telephone
+        }</span></div>
+        <div class="pdf-header">Date of Birth :  <span class="pdf-value">${
+          data.dateOfBirth
+        }</span></div>
+        <div class="pdf-header">Nationality :  <span class="pdf-value">${
+          data.nationality
+        }</span></div>
+        <div class="pdf-header">Effective Date : <span class="pdf-value">${
+          data.effectiveDate
+        }</span></div>
+        <div class="pdf-header">Duration : <span class="pdf-value">${
+          data.duration
+        }</span></div>
+        <div class="pdf-header">Beneficiary : <span class="pdf-value">${
+          data.beneficiary
+        }</span></div>
+        <div class="pdf-header">Sum Insured : <span class="pdf-value">${
+          data.sumInsured
+        }</span></div>
+        <div class="pdf-header">Currency : <span class="pdf-value">${
+          data.currency
+        }</span></div>
+        <div class="pdf-header">Premium : <span class="pdf-value">${
+          data.premium
+        }</span></div>
+        <div class="pdf-header">Issuance Date : <span class="pdf-value">${
+          data.issuanceDate
+        }</span></div>
+        <div class="pdf-header" style="page-break-after: always;">Expiry Date : <span class="pdf-value">${
+          data.expiryDate
+        }</span></div>
+        <article class="general-terms">
+        <h1 class="general-terms-h1">Life Insurance Policy</h1>
+        <h1 class="general-terms-h1">General Conditions</h1>
+        <p class="line-wrap">${ct.intro}</p>
+        ${definitions()}
+        ${Clauses()}
+        </article>
       </body>
+      <footer class="signatures">
+      <span class="signature-beirut">Beirut Life (Digitaly Signed)</span>
+      <span class="signature-insured">The Insured</span>
+      </footer>
     </html>  `;
 };
 

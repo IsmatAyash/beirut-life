@@ -32,22 +32,27 @@ import { PolicyContext } from '../context/policyContext';
 const validationSchema = Yup.object().shape({
   insuredName: Yup.string().required().min(4).label('Insured Name'),
   telephone: Yup.string().required().label('Telephone'),
-  duration: Yup.number().required().min(1).max(90).label('Duration'),
-  beneficiary: Yup.string().required().min(4).label('Beneficiary'),
   email: Yup.string().email().label('Email'),
+  // beneficiary: Yup.string()
+  //   .label('Beneficiary')
+  //   .when('productCode', {
+  //     is: (val) => val === 'ACC-02',
+  //     then: Yup.string().required('Benficiary is required'),
+  //   }),
 });
 
-const nats = [
-  { label: 'American', value: 1 },
-  { label: 'Lebanese', value: 2 },
-  { label: 'Syrian', value: 3 },
-  { label: 'French', value: 4 },
-];
+// const nats = [
+//   { label: 'American', value: 1 },
+//   { label: 'Lebanese', value: 2 },
+//   { label: 'Syrian', value: 3 },
+//   { label: 'French', value: 4 },
+// ];
 
 const ApplicationScreen = ({ route, navigation }) => {
-  const [citizenShip, setCitizenShip] = useState();
+  // const [citizenShip, setCitizenShip] = useState();
   const [dob, setDob] = useState();
   const [effDate, setEffDate] = useState();
+  const [childBdate, setChildBdate] = useState();
   const [showAppDetails, setShowAppDetails] = useState(false);
   const { policy, updatePolicy, coverages } = useContext(PolicyContext);
 
@@ -67,13 +72,16 @@ const ApplicationScreen = ({ route, navigation }) => {
   };
 
   const mapUpdateValues = async (values) => {
+    values.nationality = 'Lebanese';
     values.intro = item.intro;
     values.policyNumber = await getPolicyNumber();
     values.title = item.title;
     values.productCode = item.productCode;
     values.sumInsured = item.sumInsured;
     values.premium = item.premium;
+    values.childName = item.childName;
     values.issuanceDate = new Date();
+    values.childBdate = new Date();
     values.expiryDate = new Date(
       moment(values.effectiveDate, 'DD-MM-YYYY').add(values.duration, 'd')
     );
@@ -83,23 +91,32 @@ const ApplicationScreen = ({ route, navigation }) => {
   };
 
   const handleSub = async (values) => {
-    console.log('values', values);
-    if (!values.title.includes('Personal')) {
+    // check age for family protector policy and set expiry date
+    const cvg = coverages.filter((c) => c.productCode === values.productCode);
+    if (values.productCode === 'ACC-01') {
       const age = new Date().getFullYear() - values.dateOfBirth.getFullYear();
+      values.expiryDate = new Date(
+        moment(new Date().getDate, 'DD-MM-YYYY').add(18 - age, 'd')
+      );
       if (age < 18 || age > 55) {
         Alert.alert(
           'Sorry cannot proceed! To apply for this policy your age should be between 18 and 55'
         );
         return;
       }
-    }
-    if (values.productCode.includes('SCH')) {
-      const sch = coverages.filter((c) => c.productCode === values.productCode);
+    } else
+      values.expiryDate = new Date(
+        moment(new Date().getDate, 'DD-MM-YYYY').add(cvg.duration, 'd')
+      );
+
+    // Calculate the sum insured value for the schooling policy
+    if (values.productCode === 'ACC-02') {
       values.sumInsured =
-        (sch.minAge -
+        (cvg.minAge -
           (new Date().getFullYear - values.dateOfBirth.getFullYear())) *
-        sch.sumInsuredMultiplier;
+        cvg.sumInsuredMultiplier;
     }
+
     try {
       await mapUpdateValues(values);
       // navigation.navigate(routes.STRIPE_PAY);
@@ -126,7 +143,7 @@ const ApplicationScreen = ({ route, navigation }) => {
                 resizeMode="contain"
                 style={styles.logo}
               />
-              <Text style={styles.title}>{item.name}</Text>
+              <Text style={styles.title}>{item.title}</Text>
             </View>
 
             <Form
@@ -135,79 +152,109 @@ const ApplicationScreen = ({ route, navigation }) => {
               validationSchema={validationSchema}
             >
               <FormField
+                label="Product Code"
+                icon="account"
+                name="productCode"
+                value={item.productCode}
+                autoCorrect={false}
+                placeholder="Product Code"
+              />
+
+              <FormField
+                label="Insured Name"
                 type="email"
                 icon="account"
                 name="insuredName"
                 autoCorrect={false}
                 autoCapitalize="words"
-                placeholder="Insured name"
+                placeholder="Insured full name"
               />
 
               <FormField
+                label="Mobile"
                 icon="phone"
                 name="telephone"
+                type="numeric"
                 autoCorrect={false}
                 autoCapitalize="none"
-                placeholder="Telephone"
+                placeholder="961 3 999999"
+                keyboardType="numeric"
               />
 
               <FormField
+                label="Address"
                 icon="home-account"
                 name="address"
                 autoCorrect={false}
                 autoCapitalize="sentences"
-                placeholder="Address"
+                placeholder="street, building, area, region"
               />
 
               <FormField
+                label="Email"
                 icon="email"
                 name="email"
                 autoCorrect={false}
                 autoCapitalize="none"
-                placeholder="Email"
+                placeholder="example@bbc.com"
               />
-              <Text>Date of Birth</Text>
               <DatePicker
+                label="Date of Birth"
                 icon="calendar-month-outline"
-                placeholderText="Date of Birth"
+                placeholderText="DD/MM/YYYY"
                 name="dateOfBirth"
                 selectedItem={dob}
                 onSelectItem={(item) => setDob(item)}
               />
 
-              <Picker
+              {/* <Picker
                 items={nats}
                 icon="apps"
                 name="nationality"
                 placeholder="Nationality"
                 selectedItem={citizenShip}
                 onSelectItem={(item) => setCitizenShip(item)}
-              />
-              <Text>Effective Date</Text>
+              /> */}
               <DatePicker
+                label="Effective Date"
                 icon="calendar-month-outline"
-                placeholderText="Effective Date"
+                placeholderText="DD/MM/YYYY"
                 name="effectiveDate"
                 selectedItem={effDate}
                 onSelectItem={(item) => setEffDate(item)}
               />
 
-              <FormField
-                icon="clock"
-                name="duration"
-                autoCorrect={false}
-                autoCapitalize="none"
-                keyboardType="numeric"
-                placeholder="Duration"
-              />
-
-              <FormField
-                icon="account-arrow-right"
-                name="beneficiary"
-                autoCorrect={false}
-                autoCapitalize="words"
-                placeholder="Beneficiary"
-              />
+              {item.productCode === 'ACC-02' ? (
+                <>
+                  <FormField
+                    label="Child Name"
+                    icon="account-arrow-right"
+                    name="childName"
+                    autoCorrect={false}
+                    autoCapitalize="words"
+                    placeholder="Child full name"
+                  />
+                  <DatePicker
+                    label="Child Birth Date"
+                    icon="calendar-month-outline"
+                    placeholderText="DD/MM/YYYY"
+                    name="effectiveDate"
+                    selectedItem={childBdate}
+                    onSelectItem={(item) => setChildBdate(item)}
+                    KeyboardAvoidingView
+                  />
+                </>
+              ) : (
+                <FormField
+                  label="Beneficiary"
+                  icon="account-arrow-right"
+                  name="beneficiary"
+                  autoCorrect={false}
+                  autoCapitalize="words"
+                  placeholder="Benficiary's full name"
+                  KeyboardAvoidingView
+                />
+              )}
               <View style={styles.btnGroup}>
                 <SubmitButton title="Submit" />
                 <Button
@@ -231,19 +278,22 @@ const ApplicationScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
     marginVertical: 15,
     paddingHorizontal: 4,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: COLORS.teal,
+    height: 60,
   },
   title: {
     fontFamily: FONTS.bold,
     width: '60%',
     textAlign: 'center',
+    color: COLORS.white,
   },
   logo: {
     width: 90,
     height: 40,
-    alignSelf: 'center',
   },
   btnGroup: {
     display: 'flex',
