@@ -1,108 +1,16 @@
-import { useEffect, useState, useContext } from 'react';
-import { Alert, Text, StyleSheet, View, Image } from 'react-native';
-import { useStripe } from '@stripe/stripe-react-native';
+import { useContext } from 'react';
+import { Text, StyleSheet, View, Image } from 'react-native';
 
 import { PayButton, Screen } from '../components';
-import { API_URL } from '../Config';
 import { COLORS, FONTS, SIZES, assets } from '../constants';
-import { printPolicy } from '../helpers';
-import routes from '../navigation/routes';
 import { PolicyContext } from '../context/policyContext';
 import useStripePay from '../hooks/useStripePay';
 
 const StripePaymentScreen = ({ navigation }) => {
-  // const { initPaymentSheet, presentPaymentSheet } = useStripe();
-  // const [paymentSheetEnabled, setPaymentSheetEnabled] = useState(false);
-  // const [loading, setLoadng] = useState(false);
-  // const [clientSecret, setClientSecret] = useState();
   const { policy } = useContext(PolicyContext);
   const { openPaymentSheet, loading, paymentSheetEnabled } = useStripePay();
 
-  // const fetchPaymentSheetParams = async () => {
-  //   try {
-  //     const response = await fetch(`${API_URL}/stripe/pay`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         amount: policy.premium,
-  //         name: policy.insuredName,
-  //       }),
-  //     });
-  //     const { clientSecret, name } = await response.json();
-
-  //     setClientSecret(clientSecret);
-  //     return {
-  //       clientSecret,
-  //       name,
-  //     };
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
-
-  // const postSale = async () => {
-  //   try {
-  //     const response = await fetch(`${API_URL}/sale/add`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(policy),
-  //     });
-  //     console.log('Sale successfuly posted', response);
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
-
-  // const openPaymentSheet = async () => {
-  //   if (!clientSecret) {
-  //     return;
-  //   }
-  //   setLoadng(true);
-  //   const { error } = await presentPaymentSheet({
-  //     clientSecret,
-  //   });
-
-  //   if (error) {
-  //     Alert.alert(`Error code: ${error.code}`, error.message);
-  //   } else {
-  //     Alert.alert('Success', 'The payment was confirmed successfully');
-  //     await postSale(policy);
-  //     await printPolicy(policy);
-  //   }
-  //   setPaymentSheetEnabled(false);
-  //   setLoadng(false);
-  //   navigation.navigate(routes.HOME);
-  // };
-
-  // const initialisePaymentSheet = async () => {
-  //   const { clientSecret, name } = await fetchPaymentSheetParams();
-
-  //   const { error } = await initPaymentSheet({
-  //     customerId: name,
-  //     paymentIntentClientSecret: clientSecret,
-  //     customFlow: false,
-  //     merchantDisplayName: 'Beirut Life',
-  //     style: 'alwaysDark',
-  //   });
-  //   if (!error) {
-  //     setPaymentSheetEnabled(true);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // In your app’s checkout, make a network request to the backend and initialize PaymentSheet.
-  //   // To reduce loading time, make this request before the Checkout button is tapped, e.g. when the screen is loaded.
-  //   initialisePaymentSheet();
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   return (
-    // <PaymentScreen>
     <Screen>
       <View style={styles.container}>
         <View style={styles.header}>
@@ -150,7 +58,6 @@ const StripePaymentScreen = ({ navigation }) => {
         </View>
       </View>
     </Screen>
-    // </PaymentScreen>
   );
 };
 

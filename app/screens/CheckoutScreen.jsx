@@ -43,7 +43,11 @@ const CheckoutScreen = ({ navigation }) => {
         translucent={true}
       />
       <View style={styles.imageCtr}>
-        <Image source={assets.payment} resizeMode="cover" style={styles.image} />
+        <Image
+          source={assets.payment}
+          resizeMode="cover"
+          style={styles.image}
+        />
         <View style={styles.title}>
           <CircleButton
             imgUrl={assets.left}
@@ -71,7 +75,7 @@ const CheckoutScreen = ({ navigation }) => {
           image={assets.logo}
           width={110}
         />
-        <PaymentMethod
+        {/* <PaymentMethod
           onPress={handleCash}
           text="Pay cash in office or BoBFinance"
           iconColor={COLORS.blurple}
@@ -81,7 +85,7 @@ const CheckoutScreen = ({ navigation }) => {
           onPress={openPaymentSheet}
           text="Pay using Stripe payment gateway"
           image={assets.stripe}
-        />
+        /> */}
       </View>
     </Screen>
   );
@@ -155,6 +159,6 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     fontSize: SIZES.large,
     fontFamily: FONTS.bold,
-    color: COLORS.white
+    color: COLORS.white,
   },
 });

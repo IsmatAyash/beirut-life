@@ -151,14 +151,14 @@ const ApplicationScreen = ({ route, navigation }) => {
               onSubmit={(values) => handleSub(values)}
               validationSchema={validationSchema}
             >
-              <FormField
+              {/* <FormField
                 label="Product Code"
                 icon="account"
                 name="productCode"
                 value={item.productCode}
                 autoCorrect={false}
                 placeholder="Product Code"
-              />
+              /> */}
 
               <FormField
                 label="Insured Name"

@@ -81,4 +81,14 @@ const commonTerms = {
   },
 };
 
-export { setting, commonTerms };
+const clause10 = {
+  'ACC-02': `The sum insured of this policy is calculated on a decreasing basis, covering an amount of USD 1,000.- per year till the last academic year of his school journey. The cover ceases automatically once the student faces a class repeat more than 1 time
+      during this whole stage.`,
+  'ACC-03': [
+    'The Hospital Cash Benefit is limited to 15 days/stay/year.',
+    'The HCB is subject to a deductible being the first 2 days of hospitalization (days and nights).',
+    'This policy is subject to a waiting period of 15 days from the policy starting date. During this period, no cover is granted.',
+    'Coverage is granted after the premium is paid (annual or monthly). If the insured fails to pay his premium (annual or monthly) within a maximum of 10 days after the policy starting date, the policy becomes null and void and no coverage will attach without the need for any notifications or warnings. ',
+  ],
+};
+export { setting, commonTerms, clause10 };

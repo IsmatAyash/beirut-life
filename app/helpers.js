@@ -3,22 +3,22 @@ import { shareAsync } from 'expo-sharing';
 import { Asset } from 'expo-asset';
 import { manipulateAsync } from 'expo-image-manipulator';
 import { API_URL } from './Config';
-import { commonTerms as ct } from './constants';
+import { commonTerms as ct, clause10 as c10 } from './constants';
 
 const definitions = () => {
-  let para = '<h4>Clause 1: DEFINITIONS</h4>';
+  let para = '<strong>Clause 1: DEFINITIONS</strong>';
   for (const [key, value] of Object.entries(ct.defs)) {
     para += `
-    <p>
+    <article>
       ${
         key === 'list'
           ? `<ol>${value.reduce(
               (ele, item) => (ele += `<li>${item}`),
               ''
             )}</ol>`
-          : `<p><strong>${key}</strong>${value}</p>`
+          : `<span><strong>${key}</strong>${value}</span>`
       }
-    </p>
+    </article>
     `;
   }
   return para;
@@ -27,19 +27,35 @@ const definitions = () => {
 const Clauses = () => {
   let para = '';
   for (const [key, value] of Object.entries(ct.clauses)) {
-    para += `<p><strong>${key}</strong></p>
-      <article class="clause-1">
+    para += `<strong>${key}</strong>
+      <article>
             ${
               key === 'list'
                 ? `<ol>${value.reduce(
                     (ele, item) => (ele += `<li>${item}`),
                     ''
                   )}</ol>`
-                : `<p>${value}</p>`
+                : `<span class="clause-para">${value}</span>`
             }      
       </article>`;
   }
   return para;
+};
+
+const clauseTen = (prodCode) => {
+  let para = '<strong>Clause 10 - Additional Conditions</strong> <article>';
+  // school protector
+  if (prodCode === 'ACC-02') return (para += c10[prodCode]);
+
+  // hospital bill gap
+  if (prodCode === 'ACC-03') {
+    para += `<ul>${c10[prodCode].reduce(
+      (ele, item) => (ele += `<li>${item}`),
+      ''
+    )}</ul>`;
+    return (para += '<article');
+  }
+  return '';
 };
 
 const genPolicy = async (data) => {
@@ -76,11 +92,13 @@ const genPolicy = async (data) => {
           word-wrap: break-word;
         }
 
-        .clause-1 {
-          margin-top: 2px;
+        .clause-para {
+          margin-bottom: 10px;
+          display: inline-block;
         }
+
         .signatures {
-          margin-top: 15px;
+          margin-top: 20px;
           display: flex;
           justify-content: space-between;
         }
@@ -147,10 +165,11 @@ const genPolicy = async (data) => {
         }</span></div>
         <article class="general-terms">
         <h1 class="general-terms-h1">Life Insurance Policy</h1>
-        <h1 class="general-terms-h1">General Conditions</h1>
+        <h3 class="general-terms-h1">General Conditions</h3>
         <p class="line-wrap">${ct.intro}</p>
         ${definitions()}
         ${Clauses()}
+        ${clauseTen(data.productCode)}
         </article>
       </body>
       <footer class="signatures">
@@ -180,7 +199,7 @@ const postSale = async (data) => {
       },
       body: JSON.stringify(data),
     });
-    console.log('Sale successfuly posted', response);
+    console.log('Sale successfuly posted', stringify.JSON(response));
   } catch (err) {
     console.log(err.message);
   }
