@@ -14,7 +14,7 @@ const PaymentScreen = ({ navigation, route }) => {
   const sessionId = route.params.sessionId;
   const orderId = route.params.orderId;
   const { insured, premium, currency, title } = route.params.details;
-
+  const url = `${BBC_PAY_URL_LOCAL}?session_id=${sessionId}&insured=${insured}&title=${title}&currency=${currency}&premium=${premium}`
   const handlePost = async (msg) => {
     if (msg === 'Completed!') {
       Alert.alert('Success', 'The payment was confirmed successfully');
@@ -42,7 +42,7 @@ const PaymentScreen = ({ navigation, route }) => {
       <View style={styles.container}>
         <WebView
           source={{
-            uri: `${BBC_PAY_URL}?session_id=${sessionId}&insured=${insured}&title=${title}&currency=${currency}&premium=${premium}`,
+            uri: url,
           }}
           style={styles.webview}
           onMessage={({ nativeEvent }) => {
@@ -62,6 +62,11 @@ const styles = StyleSheet.create({
     marginTop: 70,
   },
   webview: {
+    marginTop: 20,
+    marginLeft: 20,
+    maxHeight: 600,
+    width: 320,
+    flex: 1,
     display: 'flex',
     backgroundColor: '#fff',
     borderRadius: 10,

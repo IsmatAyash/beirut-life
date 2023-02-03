@@ -24,6 +24,7 @@ const CheckoutScreen = ({ navigation }) => {
     title: policy.title,
     insured: policy.insuredName,
   });
+  console.log("policyyyy ->", policy)
   const { sessionId, orderId } = useGetSessionId(paydetails);
   const { openPaymentSheet } = useStripePay();
 
@@ -71,7 +72,20 @@ const CheckoutScreen = ({ navigation }) => {
               details: paydetails,
             })
           }
-          text="Credit card Payment using BoB paygate"
+          text="Credit Card Payment using BoB paygate"
+          image={assets.logo}
+          width={110}
+        />
+          <PaymentMethod
+          disabled={true}
+          onPress={() =>
+            navigation.navigate(routes.PAYMENT, {
+              sessionId,
+              orderId,
+              details: paydetails,
+            })
+          }
+          text="COMING SOON! Recurring Card Payment using BoB paygate"
           image={assets.logo}
           width={110}
         />
@@ -98,10 +112,11 @@ const PaymentMethod = ({
   icon,
   image,
   width = 50,
+  disabled
 }) => {
   const imageLogo = { width: width, height: 50 };
   return (
-    <TouchableOpacity style={styles.cash} onPress={onPress}>
+    <TouchableOpacity style={disabled? styles.disabledCash:styles.cash} onPress={onPress} disabled={disabled} >
       {image ? (
         <Image source={image} style={imageLogo} />
       ) : (
@@ -139,6 +154,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     backgroundColor: COLORS.white,
+  }, 
+  disabledCash: {
+    marginVertical: 10,
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderWidth: 0.5,
+    borderColor: COLORS.green,
+    borderRadius: 5,
+    padding: 5,
+    backgroundColor: COLORS.white,
+    opacity:0.5
   },
   text: {
     marginVertical: 5,
