@@ -72,7 +72,7 @@ const CheckoutScreen = ({ navigation }) => {
               details: paydetails,
             })
           }
-          text="Credit card Payment using BoB paygate"
+          text="Credit Card Payment using BoB paygate"
           image={assets.logo}
           width={110}
         />
@@ -85,7 +85,7 @@ const CheckoutScreen = ({ navigation }) => {
               details: paydetails,
             })
           }
-          text="Recurring card Payment using BoB paygate"
+          text="COMING SOON! Recurring Card Payment using BoB paygate"
           image={assets.logo}
           width={110}
         />
